@@ -1,0 +1,11 @@
+# deploy-backend.yml — Auto-deploy backend to Google Cloud Run
+# Triggers on every push to main branch
+#
+# TODO:
+#   - Trigger: on push to main
+#   - Steps:
+#       1. Checkout code
+#       2. Authenticate to Google Cloud (use Workload Identity or service account key)
+#       3. Build and push Docker image to Google Container Registry
+#       4. Deploy to Cloud Run (region: asia-south1)
+#   - Add GCP_SA_KEY secret in GitHub repo settings
