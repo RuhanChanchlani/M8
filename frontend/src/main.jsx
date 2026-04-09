@@ -1,6 +1,22 @@
-// main.jsx — React app entry point
-//
-// TODO:
-//   - Import React, ReactDOM, App, BrowserRouter, and index.css
-//   - Wrap <App /> in <BrowserRouter>
-//   - Render into document.getElementById("root")
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+import "./styles/index.css";
+import { ThemeProvider } from "./context/ThemeContext";
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").catch(() => {});
+  });
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <ThemeProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ThemeProvider>
+  </React.StrictMode>
+);

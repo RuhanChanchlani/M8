@@ -1,13 +1,34 @@
-// formatTime.js — Time formatting helpers
-//
-// TODO: Export these functions:
-//
-// timeAgo(timestamp)
-//   - Input: Unix timestamp (number)
-//   - Output: "2 mins ago", "1 hour ago", "just now"
-//
-// formatDateTime(timestamp)
-//   - Output: "Apr 1, 2026 at 3:45 PM"
-//
-// getResponseTime(reportedAt, resolvedAt)
-//   - Output: "4m 32s" (human-readable duration)
+function toDate(timestamp) {
+  return timestamp instanceof Date ? timestamp : new Date(timestamp);
+}
+
+export function formatTime(timestamp) {
+  return toDate(timestamp).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+export function formatDate(timestamp) {
+  return toDate(timestamp).toLocaleDateString([], {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+}
+
+export function formatDateTime(timestamp) {
+  return `${formatDate(timestamp)} • ${formatTime(timestamp)}`;
+}
+
+export function getRelativeTime(timestamp) {
+  const diffMinutes = Math.round((Date.now() - toDate(timestamp).getTime()) / 60000);
+
+  if (diffMinutes < 1) return "Just now";
+  if (diffMinutes < 60) return `${diffMinutes}m ago`;
+
+  const diffHours = Math.round(diffMinutes / 60);
+  if (diffHours < 24) return `${diffHours}h ago`;
+
+  return `${Math.round(diffHours / 24)}d ago`;
+}

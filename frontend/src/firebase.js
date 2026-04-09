@@ -1,10 +1,16 @@
-// firebase.js — Initialize Firebase and export shared instances
-//
-// TODO:
-//   - Import initializeApp from "firebase/app"
-//   - Import getAuth, getDatabase, getFirestore, getMessaging
-//   - Build firebaseConfig object from import.meta.env.VITE_FIREBASE_* variables
-//   - Call initializeApp(firebaseConfig)
-//   - Export: auth, db (Realtime DB), firestore, messaging
-//
-// All other files import from here — never initialize Firebase elsewhere
+export const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "",
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL || "",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "",
+};
+
+export const isFirebaseConfigured = Boolean(
+  firebaseConfig.apiKey && firebaseConfig.projectId
+);
+
+export const isMockMode =
+  import.meta.env.VITE_USE_MOCK_DATA !== "false" || !isFirebaseConfigured;

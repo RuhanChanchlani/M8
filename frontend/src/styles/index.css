@@ -1,6 +1,37 @@
-/* index.css — Global styles */
-/* TODO:
-   - Add Tailwind directives: @tailwind base; @tailwind components; @tailwind utilities;
-   - Add any custom global CSS (fonts, scrollbar styles, etc.)
-   - Import Google Fonts if needed
-*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-brand-stone text-brand-dark font-sans antialiased transition-colors duration-500 ease-in-out;
+  }
+  
+  .dark body {
+    @apply bg-brand-zinc text-brand-stone;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif tracking-wide;
+  }
+}
+
+@layer components {
+  /* Earthy Glassmorphism utilities */
+  .glass-panel {
+    @apply bg-brand-sand/40 dark:bg-brand-dark/60 backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.1)] rounded-2xl transition-all duration-300;
+  }
+  
+  .premium-focus {
+    @apply focus:outline-none focus:ring-2 focus:ring-brand-terracotta/40 focus:border-brand-terracotta/60 transition-all duration-200;
+  }
+}
+
+/* Hide scrollbar for clean aesthetic */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
