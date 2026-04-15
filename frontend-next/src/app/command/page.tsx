@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
-const Dashboard = () => {
+export default function Page() {
   return (
-    <div className="text-on-surface min-h-screen flex flex-col bg-main-image">
+    <div className="text-on-surface min-h-screen flex flex-col bg-background">
+      
 
 <aside className="h-screen w-72 fixed left-0 top-0 sidebar-blur flex flex-col py-12 z-40">
 <div className="px-8 mb-12">
@@ -13,23 +14,23 @@ const Dashboard = () => {
 <p className="font-['Manrope'] font-bold uppercase tracking-[0.05em] text-[0.75rem] text-[#adcfae] text-shadow-strong">Safety Command</p>
 </div>
 <nav className="flex-1 space-y-2">
-<Link className="flex items-center gap-4 text-[#adcfae] hover:pl-10 transition-all py-4 pl-8 hover:bg-white/10" to="#">
+<Link className="flex items-center gap-4 text-[#adcfae] hover:pl-10 transition-all py-4 pl-8 hover:bg-white/10" href="#">
 <span className="material-symbols-outlined">grid_view</span>
 <span className="font-['Manrope'] font-bold uppercase tracking-[0.05em] text-[0.75rem]">Overview</span>
 </Link>
-<Link className="flex items-center gap-4 text-[#ffb59b] bg-white/10 rounded-r-full py-4 pl-8" to="#">
+<Link className="flex items-center gap-4 text-[#ffb59b] bg-white/10 rounded-r-full py-4 pl-8" href="#">
 <span className="material-symbols-outlined" style={{fontVariationSettings: "'FILL' 1"}}>map</span>
 <span className="font-['Manrope'] font-bold uppercase tracking-[0.05em] text-[0.75rem]">Tactical Map</span>
 </Link>
-<Link className="flex items-center gap-4 text-[#adcfae] hover:pl-10 transition-all py-4 pl-8 hover:bg-white/10" to="#">
+<Link className="flex items-center gap-4 text-[#adcfae] hover:pl-10 transition-all py-4 pl-8 hover:bg-white/10" href="#">
 <span className="material-symbols-outlined">groups</span>
 <span className="font-['Manrope'] font-bold uppercase tracking-[0.05em] text-[0.75rem]">Staffing</span>
 </Link>
-<Link className="flex items-center gap-4 text-[#adcfae] hover:pl-10 transition-all py-4 pl-8 hover:bg-white/10" to="#">
+<Link className="flex items-center gap-4 text-[#adcfae] hover:pl-10 transition-all py-4 pl-8 hover:bg-white/10" href="#">
 <span className="material-symbols-outlined">inventory_2</span>
 <span className="font-['Manrope'] font-bold uppercase tracking-[0.05em] text-[0.75rem]">Inventory</span>
 </Link>
-<Link className="flex items-center gap-4 text-[#adcfae] hover:pl-10 transition-all py-4 pl-8 hover:bg-white/10" to="#">
+<Link className="flex items-center gap-4 text-[#adcfae] hover:pl-10 transition-all py-4 pl-8 hover:bg-white/10" href="#">
 <span className="material-symbols-outlined">analytics</span>
 <span className="font-['Manrope'] font-bold uppercase tracking-[0.05em] text-[0.75rem]">Analytics</span>
 </Link>
@@ -43,10 +44,10 @@ const Dashboard = () => {
 </div>
 </div>
 <div className="space-y-4">
-<Link className="flex items-center gap-3 text-white/70 hover:text-[#ffb59b] transition-colors text-xs uppercase tracking-widest font-bold" to="#">
+<Link className="flex items-center gap-3 text-white/70 hover:text-[#ffb59b] transition-colors text-xs uppercase tracking-widest font-bold" href="#">
 <span className="material-symbols-outlined text-sm">help</span> Support
                 </Link>
-<Link className="flex items-center gap-3 text-white/70 hover:text-[#ffb59b] transition-colors text-xs uppercase tracking-widest font-bold" to="#">
+<Link className="flex items-center gap-3 text-white/70 hover:text-[#ffb59b] transition-colors text-xs uppercase tracking-widest font-bold" href="#">
 <span className="material-symbols-outlined text-sm">history</span> Archive
                 </Link>
 </div>
@@ -59,9 +60,9 @@ const Dashboard = () => {
 <h1 className="text-2xl font-black tracking-tighter text-[#ffb59b] uppercase text-shadow-strong">Solar Pavilion Response</h1>
 <div className="flex items-center gap-8">
 <div className="flex items-center gap-6 font-['Manrope'] font-bold tracking-tight">
-<Link className="text-[#ffdfa0] hover:text-[#ffb59b] transition-colors text-shadow-strong" to="#">Dashboard</Link>
-<Link className="text-[#ffb59b] font-black border-b-2 border-[#ffb59b] pb-1 text-shadow-strong" to="#">Incidents</Link>
-<Link className="text-[#ffdfa0] hover:text-[#ffb59b] transition-colors text-shadow-strong" to="#">Resources</Link>
+<Link className="text-[#ffdfa0] hover:text-[#ffb59b] transition-colors text-shadow-strong" href="#">Dashboard</Link>
+<Link className="text-[#ffb59b] font-black border-b-2 border-[#ffb59b] pb-1 text-shadow-strong" href="#">Incidents</Link>
+<Link className="text-[#ffdfa0] hover:text-[#ffb59b] transition-colors text-shadow-strong" href="#">Resources</Link>
 </div>
 <div className="flex items-center gap-4">
 <button className="liquid-glass text-white px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest active:scale-95 transition-transform bg-[#91472a]/80">
@@ -71,7 +72,7 @@ const Dashboard = () => {
 <span className="material-symbols-outlined">notifications</span>
 </button>
 <div className="w-10 h-10 rounded-full border-2 border-[#ffb59b]/50 overflow-hidden shadow-lg">
-<img alt="Manager Profile" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJopavJ4H8Y1CotdsP49J6XnkCscsxwapo63EtlleSQO2ImHcPxuKvQt5NxjEVANuwAVYLTIaE_NNcoB88rkdoMxCAW4wi9hoNWqY4HnX_MQOsZ0NXTZEY608PfenhOFkkFtcSQARJmw3ifGsqKN1qw5panTnY3BpY4Fi-C1cW9Fd6xA6aTMaLW11m0oWFynERoxpeSnesXXMjha97POh0gjEJoGfCK12x0VI8pGuTRe-MOHBv-cJ850f2LZoQOaTUde4Mr4q2-bGM" />
+<img alt="Manager Profile" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJopavJ4H8Y1CotdsP49J6XnkCscsxwapo63EtlleSQO2ImHcPxuKvQt5NxjEVANuwAVYLTIaE_NNcoB88rkdoMxCAW4wi9hoNWqY4HnX_MQOsZ0NXTZEY608PfenhOFkkFtcSQARJmw3ifGsqKN1qw5panTnY3BpY4Fi-C1cW9Fd6xA6aTMaLW11m0oWFynERoxpeSnesXXMjha97POh0gjEJoGfCK12x0VI8pGuTRe-MOHBv-cJ850f2LZoQOaTUde4Mr4q2-bGM"/>
 </div>
 </div>
 </div>
@@ -83,7 +84,7 @@ const Dashboard = () => {
 <div className="relative flex-1 rounded-3xl overflow-hidden glass-heavy shadow-2xl group border border-white/20 bg-black/10">
 
 <div className="absolute inset-0 opacity-40 pointer-events-none mix-blend-overlay">
-<img className="w-full h-full object-cover grayscale contrast-150 brightness-125" data-alt="Abstract minimalist architectural floor plan" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9qCaoxOKoW_rUB2mmQLsJA2HnCbE4Db3Ez8OMX6_bZA2rujUejKSszLXaYR6jPwZIbjfv0DYXjxrsXrvUCSgSJ4MEex3yxpw8oQZK6IOdpdOLltla6BBs6313_An4aA54CE2KE2PPhTKRbBCSx2hnSPaumRTaCY2gb34Ia80pqy3US8pRqWIn0D9nHyZIQCgvkDmqJTd7DtFkgVSRxJfYMCFfqDOYdsQ7cg-GfmpIARK-y4gRuoH-oL4NsA4k2L6JXHiazVqMP_ry" />
+<img className="w-full h-full object-cover grayscale contrast-150 brightness-125" data-alt="Abstract minimalist architectural floor plan" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9qCaoxOKoW_rUB2mmQLsJA2HnCbE4Db3Ez8OMX6_bZA2rujUejKSszLXaYR6jPwZIbjfv0DYXjxrsXrvUCSgSJ4MEex3yxpw8oQZK6IOdpdOLltla6BBs6313_An4aA54CE2KE2PPhTKRbBCSx2hnSPaumRTaCY2gb34Ia80pqy3US8pRqWIn0D9nHyZIQCgvkDmqJTd7DtFkgVSRxJfYMCFfqDOYdsQ7cg-GfmpIARK-y4gRuoH-oL4NsA4k2L6JXHiazVqMP_ry"/>
 </div>
 
 <div className="absolute inset-0 p-8 flex flex-col pointer-events-none">
@@ -200,7 +201,7 @@ const Dashboard = () => {
 <button className="text-[#ffb59b]"><span className="material-symbols-outlined text-lg">more_vert</span></button>
 </div>
 <div className="h-32 rounded-xl overflow-hidden mb-3 relative group border border-white/10">
-<img className="w-full h-full object-cover brightness-75 group-hover:brightness-100 transition-all" data-alt="luxury resort lobby entrance" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB73BZgnMivK8j2rW4O0pFukFjRuaQGFMHEqM2lKR_1uUMUn_qia3yHQzY9WdtjNrcG2EJFa7ZCbkVEPKVXz4t6EYFiKB4_FdxP9HGApdSIK95YtZNE3mYrLCYBbbuA88itUuIoTKcOIlcVk-kdxCTAgbAHoaE3gR_HAOPIqCE82hkwazq0rZtnWTzt-h2xc20nvkRdiVCmSG5Rb6ZYph-oIClTD7V7h5hCfh5DYWJY5KuqWFNdZ8AEFDPE94iHmiJiPjCHgzjemI31" />
+<img className="w-full h-full object-cover brightness-75 group-hover:brightness-100 transition-all" data-alt="luxury resort lobby entrance" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB73BZgnMivK8j2rW4O0pFukFjRuaQGFMHEqM2lKR_1uUMUn_qia3yHQzY9WdtjNrcG2EJFa7ZCbkVEPKVXz4t6EYFiKB4_FdxP9HGApdSIK95YtZNE3mYrLCYBbbuA88itUuIoTKcOIlcVk-kdxCTAgbAHoaE3gR_HAOPIqCE82hkwazq0rZtnWTzt-h2xc20nvkRdiVCmSG5Rb6ZYph-oIClTD7V7h5hCfh5DYWJY5KuqWFNdZ8AEFDPE94iHmiJiPjCHgzjemI31"/>
 <div className="absolute inset-0 bg-black/40 opacity-40 group-hover:opacity-0 transition-opacity"></div>
 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
 <span className="material-symbols-outlined text-white text-5xl drop-shadow-xl">play_circle</span>
@@ -241,7 +242,7 @@ const Dashboard = () => {
 </div>
 </div>
 <div className="h-32 rounded-xl overflow-hidden mb-3 border border-white/10">
-<img className="w-full h-full object-cover brightness-75 group-hover:brightness-100 transition-all" data-alt="crystalline clear infinity pool" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOO6UeW5w3ODOZGnwprNGCTC_35rgNzqZAT1jrrf1JOj9zBxE9xrtxItG84F3wTtAK66KovpvZetbGfXHsG8sNbCb-_PAWWMfuZ7u4cLmfihuJ8kGq76wfmfKe3tOiP_R48NIjZcnDwkhLLkNfpuISslusOuEgVbwXscTpGF9nv_kxv5Slby1IwnraQTFXbVNCetrJm6-gsEhDLQvGwazAThuVim8L31Oj-ROJO7cs2I0GEBPY-SIjixa_UvD1EhialtcKIp6EqSRq" />
+<img className="w-full h-full object-cover brightness-75 group-hover:brightness-100 transition-all" data-alt="crystalline clear infinity pool" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOO6UeW5w3ODOZGnwprNGCTC_35rgNzqZAT1jrrf1JOj9zBxE9xrtxItG84F3wTtAK66KovpvZetbGfXHsG8sNbCb-_PAWWMfuZ7u4cLmfihuJ8kGq76wfmfKe3tOiP_R48NIjZcnDwkhLLkNfpuISslusOuEgVbwXscTpGF9nv_kxv5Slby1IwnraQTFXbVNCetrJm6-gsEhDLQvGwazAThuVim8L31Oj-ROJO7cs2I0GEBPY-SIjixa_UvD1EhialtcKIp6EqSRq"/>
 </div>
 <p className="text-[11px] text-white/80 leading-relaxed font-bold">Filtration cycle #04 complete. pH and salinity levels within optimal luxury range.</p>
 </div>
@@ -271,14 +272,13 @@ const Dashboard = () => {
                 © 2024 Solar Pavilion Architectural Serenity. All rights reserved.
             </p>
 <div className="flex gap-8 pointer-events-auto">
-<Link className="font-['Manrope'] font-bold text-[10px] tracking-widest uppercase text-white/60 hover:text-[#ffb59b] transition-colors text-shadow-strong" to="#">Privacy Protocol</Link>
-<Link className="font-['Manrope'] font-bold text-[10px] tracking-widest uppercase text-white/60 hover:text-[#ffb59b] transition-colors text-shadow-strong" to="#">Security Compliance</Link>
-<Link className="font-['Manrope'] font-bold text-[10px] tracking-widest uppercase text-white/60 hover:text-[#ffb59b] transition-colors text-shadow-strong" to="#">Terms of Service</Link>
+<Link className="font-['Manrope'] font-bold text-[10px] tracking-widest uppercase text-white/60 hover:text-[#ffb59b] transition-colors text-shadow-strong" href="#">Privacy Protocol</Link>
+<Link className="font-['Manrope'] font-bold text-[10px] tracking-widest uppercase text-white/60 hover:text-[#ffb59b] transition-colors text-shadow-strong" href="#">Security Compliance</Link>
+<Link className="font-['Manrope'] font-bold text-[10px] tracking-widest uppercase text-white/60 hover:text-[#ffb59b] transition-colors text-shadow-strong" href="#">Terms of Service</Link>
 </div>
 </div>
-      </footer>
+</footer>
+
     </div>
   );
-};
-
-export default Dashboard;
+}

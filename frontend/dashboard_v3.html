@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#f3ede4",
+                    "primary": "#91472a",
+                    "on-tertiary-container": "#fffbff",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#94492c",
+                    "on-secondary-fixed-variant": "#2f4d34",
+                    "secondary-fixed": "#c8ecc9",
+                    "surface-container-low": "#f9f3ea",
+                    "secondary-fixed-dim": "#adcfae",
+                    "on-primary-container": "#fffbff",
+                    "inverse-on-surface": "#f6f0e7",
+                    "outline": "#87736c",
+                    "tertiary-fixed": "#ffdfa0",
+                    "surface-dim": "#dfd9d0",
+                    "error": "#ba1a1a",
+                    "secondary": "#47664b",
+                    "inverse-primary": "#ffb59b",
+                    "tertiary-fixed-dim": "#fbbc00",
+                    "primary-fixed-dim": "#ffb59b",
+                    "outline-variant": "#dac1b9",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fff8ef",
+                    "primary-container": "#af5e3f",
+                    "on-error-container": "#93000a",
+                    "on-error": "#ffffff",
+                    "secondary-container": "#c8ecc9",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed": "#380d00",
+                    "surface-container-highest": "#e8e2d9",
+                    "on-surface": "#1d1b16",
+                    "error-container": "#ffdad6",
+                    "on-background": "#1d1b16",
+                    "primary-fixed": "#ffdbcf",
+                    "on-tertiary-fixed": "#261a00",
+                    "surface": "#fff8ef",
+                    "on-tertiary-fixed-variant": "#5c4300",
+                    "on-surface-variant": "#54433d",
+                    "on-secondary-container": "#4c6c50",
+                    "surface-container-high": "#ede7de",
+                    "tertiary-container": "#956e00",
+                    "on-primary-fixed-variant": "#763217",
+                    "surface-variant": "#e8e2d9",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#fff8ef",
+                    "inverse-surface": "#33302a",
+                    "on-secondary-fixed": "#03210c",
+                    "tertiary": "#765700"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>.glass-heavy {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(25px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2)
+    }
+.deep-glass {
+    background: rgba(25, 20, 15, 0.65);
+    backdrop-filter: blur(40px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4)
+    }
+.liquid-glass {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    overflow: hidden
+    }
+.liquid-glass::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: rotate(45deg);
+    transition: all 0.6s
+    }
+.liquid-glass:hover::before {
+    left: 100%
+    }
+.liquid-glass:hover {
+    backdrop-filter: blur(40px);
+    background: rgba(255, 255, 255, 0.4);
+    transform: translatey(-2px);
+    box-shadow: 0 8px 25px 0 rgba(145, 71, 42, 0.3)
+    }
+.primary-gradient {
+    background: linear-gradient(135deg, #91472a 0%, #af5e3f 100%);
+    position: relative;
+    overflow: hidden
+    }
+body {
+    background-color: #1d1b16;
+    color: #fff;
+    font-family: "Manrope", sans-serif;
+    background-image: url(https://lh3.googleusercontent.com/aida/ADBb0uiAifuyIF__891dpcGSIMbmG_pWC96SdcLuHEZME4YP8JuuWGiFSLKAl8_hfk_cHyZM8LJBwhWcDkMrxcDX2lyleiIZfPtXGU9TQ39fbFYUouqibgLMJbkZ1JXdCcTMKfXwDXBGGRGjsVt-ko6Wti681jmP76_YwAyVjkXQ5kIhdflPhLGVR5xAHV9mBdw1Q5GF8OwYpWQ376dGeHR9FIteU0D5fEnhrw7bGD-ejn4atflK9X8lG4IwgMwnL5gdozxuw5WafJWfrNM);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24
+    }
+.sidebar-blur {
+    background: rgba(15, 12, 10, 0.7);
+    backdrop-filter: blur(40px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1)
+    }
+/* High contrast text shadows for legibility on complex backgrounds */
+.text-shadow-strong {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8)
+    }
+.header-glass {
+    background: rgba(15, 12, 10, 0.4);
+    backdrop-filter: blur(25px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15)
+    }</style>
+</head>
+<body class="overflow-hidden flex h-screen">
+<!-- SideNavBar Shell -->
+<aside class="h-screen w-72 fixed left-0 top-0 sidebar-blur flex flex-col py-12 z-40">
+<div class="px-8 mb-12">
+<div class="flex items-center gap-3 mb-1">
+<span class="font-bold text-[#ffb59b] tracking-tight text-xl text-shadow-strong">Pavilion Prime</span>
+</div>
+<p class="font-['Manrope'] font-bold uppercase tracking-[0.05em] text-[0.75rem] text-[#adcfae] text-shadow-strong">Safety Command</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 text-[#adcfae] hover:pl-10 transition-all py-4 pl-8 hover:bg-white/10" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-['Manrope'] font-bold uppercase tracking-[0.05em] text-[0.75rem]">Overview</span>
+</a>
+<a class="flex items-center gap-4 text-[#ffb59b] bg-white/10 rounded-r-full py-4 pl-8" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">map</span>
+<span class="font-['Manrope'] font-bold uppercase tracking-[0.05em] text-[0.75rem]">Tactical Map</span>
+</a>
+<a class="flex items-center gap-4 text-[#adcfae] hover:pl-10 transition-all py-4 pl-8 hover:bg-white/10" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-['Manrope'] font-bold uppercase tracking-[0.05em] text-[0.75rem]">Staffing</span>
+</a>
+<a class="flex items-center gap-4 text-[#adcfae] hover:pl-10 transition-all py-4 pl-8 hover:bg-white/10" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-['Manrope'] font-bold uppercase tracking-[0.05em] text-[0.75rem]">Inventory</span>
+</a>
+<a class="flex items-center gap-4 text-[#adcfae] hover:pl-10 transition-all py-4 pl-8 hover:bg-white/10" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-['Manrope'] font-bold uppercase tracking-[0.05em] text-[0.75rem]">Analytics</span>
+</a>
+</nav>
+<div class="px-8 mt-auto pt-8">
+<div class="p-4 rounded-xl deep-glass mb-8">
+<p class="text-[0.65rem] uppercase tracking-widest text-secondary-fixed-dim font-bold mb-1">System Status</p>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-secondary-fixed-dim animate-pulse"></div>
+<span class="text-xs font-bold text-white">Nominal</span>
+</div>
+</div>
+<div class="space-y-4">
+<a class="flex items-center gap-3 text-white/70 hover:text-[#ffb59b] transition-colors text-xs uppercase tracking-widest font-bold" href="#">
+<span class="material-symbols-outlined text-sm">help</span> Support
+                </a>
+<a class="flex items-center gap-3 text-white/70 hover:text-[#ffb59b] transition-colors text-xs uppercase tracking-widest font-bold" href="#">
+<span class="material-symbols-outlined text-sm">history</span> Archive
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 flex-1 flex flex-col relative min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-72 z-30 header-glass flex justify-between items-center px-12 py-6">
+<h1 class="text-2xl font-black tracking-tighter text-[#ffb59b] uppercase text-shadow-strong">Solar Pavilion Response</h1>
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-6 font-['Manrope'] font-bold tracking-tight">
+<a class="text-[#ffdfa0] hover:text-[#ffb59b] transition-colors text-shadow-strong" href="#">Dashboard</a>
+<a class="text-[#ffb59b] font-black border-b-2 border-[#ffb59b] pb-1 text-shadow-strong" href="#">Incidents</a>
+<a class="text-[#ffdfa0] hover:text-[#ffb59b] transition-colors text-shadow-strong" href="#">Resources</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="liquid-glass text-white px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest active:scale-95 transition-transform bg-[#91472a]/80">
+                        Emergency Alert
+                    </button>
+<button class="p-2 rounded-full hover:bg-white/20 transition-colors text-white">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full border-2 border-[#ffb59b]/50 overflow-hidden shadow-lg">
+<img alt="Manager Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJopavJ4H8Y1CotdsP49J6XnkCscsxwapo63EtlleSQO2ImHcPxuKvQt5NxjEVANuwAVYLTIaE_NNcoB88rkdoMxCAW4wi9hoNWqY4HnX_MQOsZ0NXTZEY608PfenhOFkkFtcSQARJmw3ifGsqKN1qw5panTnY3BpY4Fi-C1cW9Fd6xA6aTMaLW11m0oWFynERoxpeSnesXXMjha97POh0gjEJoGfCK12x0VI8pGuTRe-MOHBv-cJ850f2LZoQOaTUde4Mr4q2-bGM"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Dynamic Content Grid -->
+<section class="flex-1 pt-28 px-12 pb-8 grid grid-cols-12 gap-8 h-full overflow-hidden">
+<!-- Central Map Area -->
+<div class="col-span-8 flex flex-col gap-8 h-full overflow-hidden">
+<div class="relative flex-1 rounded-3xl overflow-hidden glass-heavy shadow-2xl group border border-white/20 bg-black/10">
+<!-- Map Mockup Background -->
+<div class="absolute inset-0 opacity-40 pointer-events-none mix-blend-overlay">
+<img class="w-full h-full object-cover grayscale contrast-150 brightness-125" data-alt="Abstract minimalist architectural floor plan" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9qCaoxOKoW_rUB2mmQLsJA2HnCbE4Db3Ez8OMX6_bZA2rujUejKSszLXaYR6jPwZIbjfv0DYXjxrsXrvUCSgSJ4MEex3yxpw8oQZK6IOdpdOLltla6BBs6313_An4aA54CE2KE2PPhTKRbBCSx2hnSPaumRTaCY2gb34Ia80pqy3US8pRqWIn0D9nHyZIQCgvkDmqJTd7DtFkgVSRxJfYMCFfqDOYdsQ7cg-GfmpIARK-y4gRuoH-oL4NsA4k2L6JXHiazVqMP_ry"/>
+</div>
+<!-- Map Overlay UI -->
+<div class="absolute inset-0 p-8 flex flex-col pointer-events-none">
+<div class="flex justify-between items-start pointer-events-auto">
+<div class="space-y-1">
+<h2 class="text-4xl font-black text-white tracking-tighter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">NORTH WING</h2>
+<p class="text-[#adcfae] font-black text-xs uppercase tracking-[0.2em] text-shadow-strong">Operational Status: Secure</p>
+</div>
+<div class="flex gap-2">
+<button class="liquid-glass w-12 h-12 rounded-full flex items-center justify-center text-white bg-white/10 hover:bg-white/20">
+<span class="material-symbols-outlined">zoom_in</span>
+</button>
+<button class="liquid-glass w-12 h-12 rounded-full flex items-center justify-center text-white bg-white/10 hover:bg-white/20">
+<span class="material-symbols-outlined">zoom_out</span>
+</button>
+<button class="liquid-glass px-6 h-12 rounded-full flex items-center gap-2 text-white font-black text-xs uppercase tracking-widest bg-white/10 hover:bg-white/20">
+<span class="material-symbols-outlined text-sm">layers</span> Layers
+                                </button>
+</div>
+</div>
+<!-- Incident Markers -->
+<div class="flex-1 relative">
+<!-- Marker 1 -->
+<div class="absolute top-[20%] left-[35%] pointer-events-auto group/marker cursor-pointer">
+<div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white shadow-2xl shadow-primary animate-bounce border-2 border-white/50">
+<span class="material-symbols-outlined">local_fire_department</span>
+</div>
+<div class="absolute top-full left-1/2 -translate-x-1/2 mt-4 deep-glass p-4 rounded-2xl w-56 opacity-0 group-hover/marker:opacity-100 transition-opacity pointer-events-none">
+<p class="text-[#ffb59b] font-black text-[10px] uppercase tracking-widest mb-1">Kitchen Unit 04</p>
+<p class="text-white/90 text-xs font-bold leading-relaxed">Excessive heat detected in ventilation shaft. Sensors active.</p>
+</div>
+</div>
+<!-- Marker 2 -->
+<div class="absolute top-[60%] left-[70%] pointer-events-auto group/marker cursor-pointer">
+<div class="w-10 h-10 bg-[#765700] rounded-full flex items-center justify-center text-white shadow-2xl shadow-yellow-900 border-2 border-white/50">
+<span class="material-symbols-outlined text-lg">medical_services</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Asset Integrity Matrix (Bottom) -->
+<div class="h-48 deep-glass rounded-3xl p-6 flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<h3 class="text-xs font-black uppercase tracking-widest text-white/80">Asset Integrity Matrix</h3>
+<span class="text-[10px] font-black text-[#adcfae] bg-white/10 px-3 py-1 rounded-full border border-white/10">All Systems Calibrated</span>
+</div>
+<div class="flex-1 grid grid-cols-4 gap-6">
+<div class="bg-white/5 rounded-2xl p-4 flex flex-col justify-between border border-white/10">
+<span class="text-[10px] uppercase tracking-tighter text-white/60 font-black">Solar Array β</span>
+<div class="flex items-end justify-between">
+<span class="text-xl font-black text-white">98.4%</span>
+<span class="text-[10px] text-[#adcfae] font-black uppercase">Nominal</span>
+</div>
+<div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-[#adcfae] w-[98%] shadow-[0_0_8px_#adcfae]"></div>
+</div>
+</div>
+<div class="bg-white/5 rounded-2xl p-4 flex flex-col justify-between border border-white/10">
+<span class="text-[10px] uppercase tracking-tighter text-white/60 font-black">Water Recycle</span>
+<div class="flex items-end justify-between">
+<span class="text-xl font-black text-white">100%</span>
+<span class="text-[10px] text-[#adcfae] font-black uppercase">Nominal</span>
+</div>
+<div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-[#adcfae] w-full shadow-[0_0_8px_#adcfae]"></div>
+</div>
+</div>
+<div class="bg-white/5 rounded-2xl p-4 flex flex-col justify-between border border-white/10">
+<span class="text-[10px] uppercase tracking-tighter text-white/60 font-black">HVAC Filtration</span>
+<div class="flex items-end justify-between">
+<span class="text-xl font-black text-white">92.1%</span>
+<span class="text-[10px] text-[#adcfae] font-black uppercase">Nominal</span>
+</div>
+<div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-[#adcfae] w-[92%] shadow-[0_0_8px_#adcfae]"></div>
+</div>
+</div>
+<div class="bg-white/5 rounded-2xl p-4 flex flex-col justify-between border border-white/10">
+<span class="text-[10px] uppercase tracking-tighter text-white/60 font-black">Core Perimeter</span>
+<div class="flex items-end justify-between">
+<span class="text-xl font-black text-[#ffb59b]">SECURE</span>
+<span class="text-[10px] text-[#adcfae] font-black uppercase">Nominal</span>
+</div>
+<div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-[#adcfae] w-full shadow-[0_0_8px_#adcfae]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar: Live Resort Feed -->
+<div class="col-span-4 flex flex-col h-full overflow-hidden gap-6">
+<div class="flex items-center justify-between">
+<h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#ffb59b] text-shadow-strong">Live Resort Feed</h3>
+<div class="flex gap-2 items-center bg-black/30 px-3 py-1 rounded-full">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-[10px] font-black text-white uppercase">Recording</span>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto pr-2 space-y-4">
+<!-- Feed Item 1 -->
+<div class="deep-glass rounded-2xl p-5 border border-white/10 group hover:bg-white/10 transition-all duration-500">
+<div class="flex justify-between mb-3">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-[#ffb59b]/20 flex items-center justify-center border border-[#ffb59b]/30">
+<span class="material-symbols-outlined text-[#ffb59b] text-sm">security</span>
+</div>
+<div>
+<h4 class="text-xs font-black text-white">North Pavilion Entrance</h4>
+<p class="text-[9px] text-[#adcfae] uppercase tracking-widest font-black">14:22:05 — Security</p>
+</div>
+</div>
+<button class="text-[#ffb59b]"><span class="material-symbols-outlined text-lg">more_vert</span></button>
+</div>
+<div class="h-32 rounded-xl overflow-hidden mb-3 relative group border border-white/10">
+<img class="w-full h-full object-cover brightness-75 group-hover:brightness-100 transition-all" data-alt="luxury resort lobby entrance" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB73BZgnMivK8j2rW4O0pFukFjRuaQGFMHEqM2lKR_1uUMUn_qia3yHQzY9WdtjNrcG2EJFa7ZCbkVEPKVXz4t6EYFiKB4_FdxP9HGApdSIK95YtZNE3mYrLCYBbbuA88itUuIoTKcOIlcVk-kdxCTAgbAHoaE3gR_HAOPIqCE82hkwazq0rZtnWTzt-h2xc20nvkRdiVCmSG5Rb6ZYph-oIClTD7V7h5hCfh5DYWJY5KuqWFNdZ8AEFDPE94iHmiJiPjCHgzjemI31"/>
+<div class="absolute inset-0 bg-black/40 opacity-40 group-hover:opacity-0 transition-opacity"></div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white text-5xl drop-shadow-xl">play_circle</span>
+</div>
+</div>
+<p class="text-[11px] text-white/80 leading-relaxed font-bold">System identified unrecognized logistics vehicle at service gate. ID verification requested by autonomous unit S-04.</p>
+</div>
+<!-- Feed Item 2 -->
+<div class="deep-glass rounded-2xl p-5 border border-white/10 group hover:bg-white/10 transition-all duration-500">
+<div class="flex justify-between mb-3">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-[#ffdfa0]/20 flex items-center justify-center border border-[#ffdfa0]/30">
+<span class="material-symbols-outlined text-[#ffdfa0] text-sm">thermostat</span>
+</div>
+<div>
+<h4 class="text-xs font-black text-white">West Terrace Spa</h4>
+<p class="text-[9px] text-[#adcfae] uppercase tracking-widest font-black">14:18:44 — Environmental</p>
+</div>
+</div>
+</div>
+<p class="text-[11px] text-white/80 leading-relaxed font-bold mb-4">Ambient temperature optimization complete. Adjustment made for solar gain forecast.</p>
+<div class="flex gap-2">
+<span class="text-[9px] font-black px-3 py-1 bg-white/10 rounded-full text-[#ffdfa0] uppercase tracking-tighter border border-white/5">Optimization: +1.2°C</span>
+<span class="text-[9px] font-black px-3 py-1 bg-white/10 rounded-full text-[#ffdfa0] uppercase tracking-tighter border border-white/5">Energy: Solar</span>
+</div>
+</div>
+<!-- Feed Item 3 -->
+<div class="deep-glass rounded-2xl p-5 border border-white/10 group hover:bg-white/10 transition-all duration-500">
+<div class="flex justify-between mb-3">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-[#adcfae]/20 flex items-center justify-center border border-[#adcfae]/30">
+<span class="material-symbols-outlined text-[#adcfae] text-sm">water_drop</span>
+</div>
+<div>
+<h4 class="text-xs font-black text-white">Grand Pool Hydro-Loop</h4>
+<p class="text-[9px] text-[#adcfae] uppercase tracking-widest font-black">14:15:20 — Maintenance</p>
+</div>
+</div>
+</div>
+<div class="h-32 rounded-xl overflow-hidden mb-3 border border-white/10">
+<img class="w-full h-full object-cover brightness-75 group-hover:brightness-100 transition-all" data-alt="crystalline clear infinity pool" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOO6UeW5w3ODOZGnwprNGCTC_35rgNzqZAT1jrrf1JOj9zBxE9xrtxItG84F3wTtAK66KovpvZetbGfXHsG8sNbCb-_PAWWMfuZ7u4cLmfihuJ8kGq76wfmfKe3tOiP_R48NIjZcnDwkhLLkNfpuISslusOuEgVbwXscTpGF9nv_kxv5Slby1IwnraQTFXbVNCetrJm6-gsEhDLQvGwazAThuVim8L31Oj-ROJO7cs2I0GEBPY-SIjixa_UvD1EhialtcKIp6EqSRq"/>
+</div>
+<p class="text-[11px] text-white/80 leading-relaxed font-bold">Filtration cycle #04 complete. pH and salinity levels within optimal luxury range.</p>
+</div>
+</div>
+<!-- Footer Stats Cluster -->
+<div class="mt-auto py-6 border-t border-white/10 flex flex-col gap-4">
+<div class="flex justify-between">
+<div>
+<p class="text-[10px] text-white/60 font-black uppercase tracking-widest">Active Staff</p>
+<p class="text-lg font-black text-[#adcfae]">42 Units</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] text-white/60 font-black uppercase tracking-widest">Guest Count</p>
+<p class="text-lg font-black text-[#ffdfa0]">118 Pax</p>
+</div>
+</div>
+<button class="liquid-glass w-full py-4 rounded-full text-xs font-black text-white uppercase tracking-[0.2em] bg-white/10 border border-white/20 hover:bg-white/20 transition-all shadow-xl">
+                        Generate Daily Audit
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<footer class="fixed bottom-0 left-72 right-0 pointer-events-none">
+<div class="max-w-7xl mx-auto px-12 py-8 flex flex-col md:flex-row justify-between items-center w-full">
+<p class="font-['Manrope'] font-bold text-[10px] tracking-widest uppercase text-white/60 pointer-events-auto text-shadow-strong">
+                © 2024 Solar Pavilion Architectural Serenity. All rights reserved.
+            </p>
+<div class="flex gap-8 pointer-events-auto">
+<a class="font-['Manrope'] font-bold text-[10px] tracking-widest uppercase text-white/60 hover:text-[#ffb59b] transition-colors text-shadow-strong" href="#">Privacy Protocol</a>
+<a class="font-['Manrope'] font-bold text-[10px] tracking-widest uppercase text-white/60 hover:text-[#ffb59b] transition-colors text-shadow-strong" href="#">Security Compliance</a>
+<a class="font-['Manrope'] font-bold text-[10px] tracking-widest uppercase text-white/60 hover:text-[#ffb59b] transition-colors text-shadow-strong" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+</body></html>

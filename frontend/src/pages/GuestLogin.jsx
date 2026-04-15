@@ -5,22 +5,46 @@ import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import ThemeToggle from '../components/ui/ThemeToggle';
+import { validateRoomPin } from '../services/firebaseService';
+import { useGuestSession } from '../hooks/useAuth';
 
 const GuestLogin = () => {
   const navigate = useNavigate();
   const [roomNumber, setRoomNumber] = useState('');
   const [pin, setPin] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { saveSession } = useGuestSession();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // In actual implementation, we read from Firebase to verify these match
-    // For now we persist them locally and push to the SOS view
-    localStorage.setItem('guest_session', JSON.stringify({ room: roomNumber }));
-    navigate('/guest/sos');
+    setError('');
+    setLoading(true);
+    try {
+      const result = await validateRoomPin(roomNumber.trim(), pin.trim());
+      if (!result.valid) {
+        setError(result.error === 'Session expired'
+          ? 'Your session has ended. Please contact the front desk.'
+          : 'Invalid room number or PIN. Please check your check-in card.');
+        setLoading(false);
+        return;
+      }
+      saveSession({ room: roomNumber.trim(), floor: result.data.floor, guestName: result.data.guest_name });
+      navigate('/guest/sos');
+    } catch {
+      setError('Connection error. Please try again.');
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-brand-stone dark:bg-brand-zinc transition-colors duration-500 flex items-center justify-center p-4 relative">
+    <div className="min-h-screen bg-brand-stone dark:bg-brand-zinc transition-colors duration-500 flex items-center justify-center p-4 relative z-0">
+      {/* Resort ambient gradients */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+        <div className="absolute top-[-20%] right-[-15%] w-[60%] h-[60%] rounded-full bg-brand-olive/8 blur-[120px]" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brand-teal/6 blur-[100px]" />
+        <div className="absolute top-[40%] left-[30%] w-[40%] h-[30%] rounded-full bg-brand-clay/5 blur-[80px]" />
+      </div>
       <div className="absolute top-6 right-6">
         <ThemeToggle />
       </div>
@@ -65,7 +89,20 @@ const GuestLogin = () => {
             </div>
           </CardContent>
           <CardFooter className="flex-col gap-3">
-            <Button type="submit" fullWidth>Connect to Network</Button>
+            {error && (
+              <div className="w-full bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 rounded-lg px-4 py-3 text-sm text-red-700 dark:text-red-400 mb-2 text-center">
+                {error}
+              </div>
+            )}
+            <Button
+              type="submit"
+              variant="primary"
+              fullWidth
+              disabled={loading || !roomNumber || !pin}
+              className="uppercase tracking-widest font-bold py-3.5"
+            >
+              {loading ? 'VERIFYING...' : 'GUEST LOGIN'}
+            </Button>
             <Button type="button" variant="ghost" fullWidth onClick={() => navigate('/')} className="text-sm">
                <ArrowLeft className="w-4 h-4 mr-2" /> Back to Home
             </Button>

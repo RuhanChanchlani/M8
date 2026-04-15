@@ -1,214 +1,144 @@
 import React, { useState } from 'react';
-import { ShieldAlert, Flame, Stethoscope, Shield, Wrench, CheckCircle2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import Header from '../components/layout/Header';
-import Button from '../components/ui/Button';
 
 const GuestSOS = () => {
+  const navigate = useNavigate();
   const [status, setStatus] = useState('idle'); // idle, reporting, reported
-  const [emergencyType, setEmergencyType] = useState(null);
-  const [description, setDescription] = useState('');
-
-  const emergencyTypes = [
-    { id: 'fire', icon: Flame, label: 'Fire' },
-    { id: 'medical', icon: Stethoscope, label: 'Medical' },
-    { id: 'security', icon: Shield, label: 'Security' },
-    { id: 'maintenance', icon: Wrench, label: 'Maintenance' },
-  ];
+  const [emergencyType, setEmergencyType] = useState('General SOS');
+  
+  const handleSOS = (type = 'General SOS') => {
+    setEmergencyType(type);
+    setStatus('reported');
+  };
 
   return (
-    <div className="min-h-screen bg-brand-stone dark:bg-brand-zinc transition-colors duration-500 overflow-hidden relative">
-      <Header showLogout={true} />
+    <div className="bg-surface font-body text-on-surface min-h-screen relative overflow-x-hidden">
+      <div className="fixed inset-0 bg-main-image -z-20"></div>
+      <div className="fixed inset-0 bg-white/20 backdrop-blur-[2px] -z-10"></div>
       
-      {/* Dynamic Background Effect when active */}
-      <AnimatePresence>
-        {status !== 'idle' && (
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-red-900/10 dark:bg-red-900/20 backdrop-blur-[2px] pointer-events-none"
-          />
-        )}
-      </AnimatePresence>
+      <header className="fixed top-0 w-full z-50">
+        <div className="flex justify-between items-center px-6 py-4 w-full bg-white/30 backdrop-blur-xl border-b border-white/20 relative z-50">
+          <div className="active:scale-95 duration-200 transition-opacity hover:opacity-80 cursor-pointer" onClick={() => navigate('/guest/login')}>
+            <span className="material-symbols-outlined text-emerald-600">arrow_back</span>
+          </div>
+          <h1 className="font-manrope tracking-[0.2em] uppercase text-lg font-bold text-on-surface">LUMINA LUXE</h1>
+          <div className="w-8 h-8 rounded-full bg-white/40 flex items-center justify-center overflow-hidden border border-white/40 active:scale-95 duration-200">
+            <span className="material-symbols-outlined text-white">person</span>
+          </div>
+        </div>
+      </header>
 
-      <main className="max-w-md mx-auto p-6 flex flex-col items-center pt-[10vh] relative z-10">
+      <main className="pt-24 pb-32 px-6 min-h-screen flex flex-col items-center relative z-10 w-full">
         <AnimatePresence mode="wait">
-          
-          {/* IDLE STATE */}
           {status === 'idle' && (
-            <motion.div 
+            <motion.div
               key="idle"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.1, filter: 'blur(10px)' }}
-              className="text-center w-full space-y-16"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="w-full flex flex-col items-center"
             >
-              <div>
-                <motion.h2 
-                  initial={{ y: -20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  className="text-3xl font-serif text-brand-dark dark:text-brand-stone mb-2"
-                >
-                  Need Assistance?
-                </motion.h2>
-                <motion.p 
-                  initial={{ y: -20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.1 }}
-                  className="text-brand-dark/70 dark:text-brand-stone/60"
-                >
-                  Tap the button below in case of emergency.
-                </motion.p>
+              <div className="mb-8 text-center pt-8">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full liquid-glass text-on-surface text-xs font-semibold tracking-wider uppercase bg-white/50">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  Secure Environment
+                </div>
+                <p className="mt-4 text-on-surface-variant font-medium text-sm max-w-xs mx-auto drop-shadow-sm bg-white/30 p-2 rounded-lg">
+                  Assistance is always within reach. Tap the trigger for immediate response.
+                </p>
               </div>
 
-              {/* Pulsing Radar SOS Button */}
-              <div className="relative mx-auto w-48 h-48 flex items-center justify-center">
-                <div className="absolute inset-[-50%] rounded-full bg-brand-terracotta/20 animate-ping-slow pointer-events-none" />
-                <div className="absolute inset-[-20%] rounded-full bg-brand-terracotta/30 animate-pulse pointer-events-none" />
-                <motion.button 
-                  onClick={() => setStatus('reporting')}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="relative z-10 w-full h-full rounded-full bg-brand-terracotta dark:bg-brand-terracotta/90 text-brand-stone shadow-[0_0_40px_rgba(201,122,94,0.6)] flex flex-col items-center justify-center hover:bg-brand-terracotta/90 outline-none"
+              {/* Central SOS Trigger */}
+              <div className="relative w-72 h-72 mb-12 flex items-center justify-center">
+                <div className="absolute inset-0 rounded-full bg-emerald-400/20 animate-ping"></div>
+                <div className="absolute inset-4 rounded-full bg-emerald-400/10"></div>
+                
+                <div 
+                  onClick={() => handleSOS('Emergency SOS')}
+                  className="relative z-10 w-64 h-64 rounded-full p-1 bg-gradient-to-br from-white/60 to-transparent active:scale-95 transition-transform duration-500 cursor-pointer group"
                 >
-                  <ShieldAlert className="w-16 h-16 mb-2 drop-shadow-md" />
-                  <span className="text-2xl font-bold tracking-wider drop-shadow-md">SOS</span>
-                </motion.button>
+                  <div className="w-full h-full rounded-full liquid-glass-emerald flex flex-col items-center justify-center safety-glow-emerald overflow-hidden relative">
+                    <div className="absolute inset-0 bg-gradient-to-tr from-white/40 via-transparent to-white/10 opacity-70 pointer-events-none"></div>
+                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
+                    <span className="material-symbols-outlined text-7xl text-white mb-2 relative z-10 drop-shadow-lg" style={{fontVariationSettings: "'FILL' 1"}}>emergency</span>
+                    <span className="text-4xl font-extrabold tracking-tighter text-white relative z-10 drop-shadow-lg">SOS</span>
+                    <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-white/90 mt-1 relative z-10">Trigger Alarm</span>
+                  </div>
+                </div>
               </div>
 
-              <motion.p 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                className="text-sm text-brand-dark/50 dark:text-brand-stone/40"
-              >
-                Your exact location will be sent automatically.
-              </motion.p>
-            </motion.div>
-          )}
-
-          {/* REPORTING STATE */}
-          {status === 'reporting' && (
-            <motion.div 
-              key="reporting"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              className="w-full glass-panel p-6 space-y-6 flex flex-col"
-            >
-              <h3 className="text-xl font-serif text-brand-dark dark:text-brand-stone">What's the emergency?</h3>
-              <div className="grid grid-cols-2 gap-4">
-                {emergencyTypes.map((type, index) => (
-                  <motion.button
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                    key={type.id}
-                    onClick={() => setEmergencyType(type.id)}
-                    className={`p-4 rounded-xl border flex flex-col items-center justify-center gap-2 transition-all ${
-                      emergencyType === type.id 
-                        ? 'border-brand-terracotta bg-brand-terracotta/10 text-brand-terracotta dark:bg-brand-terracotta/20 dark:text-brand-stone' 
-                        : 'border-brand-dark/10 dark:border-brand-stone/10 bg-brand-stone/50 dark:bg-brand-zinc/50 text-brand-dark/70 dark:text-brand-stone/70 hover:border-brand-terracotta/50'
-                    }`}
-                  >
-                    <type.icon className="w-8 h-8" />
-                    <span className="font-medium">{type.label}</span>
-                  </motion.button>
-                ))}
-              </div>
-
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="space-y-2"
-              >
-                <label className="text-sm font-medium text-brand-dark dark:text-brand-stone/80">Additional Details (Optional)</label>
-                <textarea 
-                  className="w-full rounded-lg border border-brand-dark/20 dark:border-brand-stone/10 bg-brand-stone/50 dark:bg-brand-dark/50 text-brand-dark dark:text-brand-stone p-3 h-24 focus:border-brand-terracotta outline-none resize-none transition-colors"
-                  placeholder="e.g., Smoke coming from the bathroom"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </motion.div>
-
-              <div className="flex gap-3 pt-4">
-                <Button variant="outline" className="flex-1 dark:text-brand-stone dark:border-brand-stone/20" onClick={() => { setStatus('idle'); setEmergencyType(null); }}>Cancel</Button>
-                <Button className="flex-1 shadow-lg shadow-brand-terracotta/30" onClick={() => setStatus('reported')} disabled={!emergencyType}>Send Alert</Button>
+              {/* Secondary Options Grid */}
+              <div className="w-full max-w-md grid grid-cols-3 gap-4 mb-12">
+                <div onClick={() => handleSOS('Medical')} className="flex flex-col items-center p-4 rounded-3xl liquid-glass active:scale-95 transition-all cursor-pointer group hover:bg-white/60 bg-white/40">
+                  <div className="w-12 h-12 rounded-2xl bg-white/60 flex items-center justify-center mb-3">
+                    <span className="material-symbols-outlined text-primary" style={{fontVariationSettings: "'FILL' 1"}}>medical_services</span>
+                  </div>
+                  <span className="text-xs font-bold text-on-surface tracking-tight">Medical</span>
+                </div>
+                <div onClick={() => handleSOS('Security')} className="flex flex-col items-center p-4 rounded-3xl liquid-glass active:scale-95 transition-all cursor-pointer group hover:bg-white/60 bg-white/40">
+                  <div className="w-12 h-12 rounded-2xl bg-white/60 flex items-center justify-center mb-3">
+                    <span className="material-symbols-outlined text-emerald-600" style={{fontVariationSettings: "'FILL' 1"}}>policy</span>
+                  </div>
+                  <span className="text-xs font-bold text-on-surface tracking-tight">Security</span>
+                </div>
+                <div onClick={() => handleSOS('Staff Request')} className="flex flex-col items-center p-4 rounded-3xl liquid-glass active:scale-95 transition-all cursor-pointer group hover:bg-white/60 bg-white/40">
+                  <div className="w-12 h-12 rounded-2xl bg-white/60 flex items-center justify-center mb-3">
+                    <span className="material-symbols-outlined text-tertiary" style={{fontVariationSettings: "'FILL' 1"}}>support_agent</span>
+                  </div>
+                  <span className="text-xs font-bold text-on-surface tracking-tight">Staff</span>
+                </div>
               </div>
             </motion.div>
           )}
 
-          {/* REPORTED STATE */}
           {status === 'reported' && (
-            <motion.div 
-              key="reported"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="w-full glass-panel p-8 text-center space-y-8"
+            <motion.div
+               key="reported"
+               initial={{ opacity: 0, scale: 0.9 }}
+               animate={{ opacity: 1, scale: 1 }}
+               className="w-full glass-panel p-8 text-center space-y-8 max-w-md bg-white/50 rounded-[3rem] border border-white/50 shadow-2xl mt-10"
             >
               <div className="relative">
-                <motion.div 
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: "spring", bounce: 0.5 }}
-                  className="w-20 h-20 bg-brand-olive/10 dark:bg-brand-olive/20 text-brand-olive dark:text-[#a1b345] rounded-full flex items-center justify-center mx-auto relative z-10"
-                >
-                  <CheckCircle2 className="w-10 h-10" />
-                </motion.div>
-                <motion.div 
-                  initial={{ scale: 0, opacity: 1 }}
-                  animate={{ scale: 2, opacity: 0 }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                  className="absolute inset-0 bg-brand-olive/30 rounded-full mx-auto w-20 h-20 pointer-events-none"
-                />
+                <div className="w-20 h-20 bg-emerald-500/20 text-emerald-600 rounded-full flex items-center justify-center mx-auto relative z-10">
+                  <span className="material-symbols-outlined text-4xl">check_circle</span>
+                </div>
+                <div className="absolute inset-0 bg-emerald-500/30 rounded-full mx-auto w-20 h-20 animate-ping pointer-events-none" />
               </div>
-
               <div>
-                <h3 className="text-2xl font-serif text-brand-dark dark:text-brand-stone mb-2">Help is on the way</h3>
-                <p className="text-brand-dark/70 dark:text-brand-stone/70">Your alert has been received. Please stay safe and follow any staff instructions.</p>
+                <h3 className="text-2xl font-bold text-on-surface mb-2">Help is on the way</h3>
+                <p className="text-on-surface-variant font-medium">Your {emergencyType} alert has been received. Please stay safe and follow any staff instructions.</p>
               </div>
 
-              {/* Animated Live Tracker Simulation */}
-              <div className="text-left bg-brand-stone/50 dark:bg-brand-dark/50 p-6 rounded-2xl border border-brand-dark/5 dark:border-brand-stone/5 relative">
-                 <div className="absolute left-[2.25rem] top-8 bottom-8 w-px bg-gradient-to-b from-brand-olive to-transparent" />
+              <div className="text-left bg-white/40 p-6 rounded-2xl border border-white/40 relative mt-6">
+                 <div className="absolute left-[2.25rem] top-8 bottom-8 w-px bg-emerald-500/50" />
                  
-                 <motion.div 
-                   initial={{ x: -20, opacity: 0 }}
-                   animate={{ x: 0, opacity: 1 }}
-                   transition={{ delay: 0.3 }}
-                   className="flex gap-4 relative mb-6"
-                 >
-                    <div className="w-6 h-6 rounded-full bg-brand-olive flex items-center justify-center shrink-0 shadow-md shadow-brand-olive/30 z-10">
-                      <div className="w-2 h-2 bg-brand-stone rounded-full" />
+                 <div className="flex gap-4 relative mb-6">
+                    <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center shrink-0 shadow-md shadow-emerald-500/30 z-10">
+                      <div className="w-2 h-2 bg-white rounded-full" />
                     </div>
                     <div>
-                      <p className="font-semibold text-brand-dark dark:text-brand-stone text-sm">Alert Sent</p>
-                      <p className="text-xs text-brand-dark/60 dark:text-brand-stone/50 mt-1">Just now</p>
+                      <p className="font-semibold text-on-surface text-sm">Alert Sent</p>
+                      <p className="text-xs text-on-surface-variant mt-1">Just now</p>
                     </div>
-                 </motion.div>
+                 </div>
                  
-                 <motion.div 
-                   initial={{ x: -20, opacity: 0 }}
-                   animate={{ x: 0, opacity: 1 }}
-                   transition={{ delay: 0.6 }}
-                   className="flex gap-4 relative"
-                 >
-                    <div className="w-6 h-6 rounded-full bg-brand-stone dark:bg-brand-zinc border-2 border-brand-olive flex items-center justify-center shrink-0 z-10">
-                      <motion.div 
-                        animate={{ opacity: [1, 0] }}
-                        transition={{ duration: 1, repeat: Infinity, repeatType: 'reverse' }}
-                        className="w-2 h-2 bg-brand-olive rounded-full" 
-                      />
+                 <div className="flex gap-4 relative">
+                    <div className="w-6 h-6 rounded-full bg-white border-2 border-emerald-500 flex items-center justify-center shrink-0 z-10">
+                      <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
                     </div>
                     <div>
-                      <p className="font-semibold text-brand-dark dark:text-brand-stone text-sm">Assigning Nearest Staff</p>
+                      <p className="font-semibold text-on-surface text-sm">Assigning Nearest Staff</p>
                     </div>
-                 </motion.div>
+                 </div>
               </div>
+
+              <button 
+                onClick={() => setStatus('idle')}
+                className="mt-8 liquid-glass hover:bg-white/60 px-6 py-4 rounded-full text-emerald-700 font-bold w-full active:scale-95 transition-all shadow-md"
+              >
+                Cancel Alert
+              </button>
             </motion.div>
           )}
 
@@ -217,5 +147,4 @@ const GuestSOS = () => {
     </div>
   );
 };
-
 export default GuestSOS;

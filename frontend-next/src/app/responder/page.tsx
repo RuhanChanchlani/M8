@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
-const ResponderView = () => {
+export default function Page() {
   return (
-    <div className="text-on-surface min-h-screen flex flex-col bg-main-image">
+    <div className="text-on-surface min-h-screen flex flex-col bg-background">
       
 <div className="stone-overlay flex flex-col flex-1">
 
@@ -11,16 +11,16 @@ const ResponderView = () => {
 <div className="flex items-center gap-8">
 <span className="text-2xl font-extrabold tracking-tighter text-[#91472a]">Solar Pavilion Response</span>
 <div className="hidden md:flex gap-8 font-['Manrope'] font-light tracking-tight">
-<Link className="text-[#91472a] font-bold border-b-2 border-[#91472a] pb-1" to="#">Dashboard</Link>
-<Link className="text-[#765700] hover:text-[#91472a] transition-colors" to="#">Incidents</Link>
-<Link className="text-[#765700] hover:text-[#91472a] transition-colors" to="#">Resources</Link>
+<Link className="text-[#91472a] font-bold border-b-2 border-[#91472a] pb-1" href="#">Dashboard</Link>
+<Link className="text-[#765700] hover:text-[#91472a] transition-colors" href="#">Incidents</Link>
+<Link className="text-[#765700] hover:text-[#91472a] transition-colors" href="#">Resources</Link>
 </div>
 </div>
 <div className="flex items-center gap-6">
 <button className="material-symbols-outlined text-[#91472a] hover:backdrop-blur-3xl transition-all duration-300 p-2">notifications</button>
 <button className="liquid-glass text-white px-6 py-2 rounded-full font-semibold scale-95 active:opacity-80 transition-all">Emergency Alert</button>
 <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-outline-variant">
-<img alt="Manager Profile" data-alt="Close up portrait of a professional response manager with a calm expression in warm natural sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXdwfBK1bYxjspGv-0nvL6SznBR3jyWlJf9kUE0tKn25IhngzxheKJrLJYE-GeQDV5Anc-rMqwvzAcAe7Wje3zTrvmjXjNVKZ82P_gfjXlJKckGyxJkX7ZP0aOVBp-ikntIEEt32QvWc3HbZHtLpkMlbEg8x4lZ4s4CenU4zehqDOK_YrdBjkoiaqVTVVQckAE7iXpmw7ZlOOq0hNpAF0xbPTzHzfU1_qn6skMEQ2kvsG4q3lf779muDkd_EkRTFYpfpGYRE3FgEfO" />
+<img alt="Manager Profile" data-alt="Close up portrait of a professional response manager with a calm expression in warm natural sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXdwfBK1bYxjspGv-0nvL6SznBR3jyWlJf9kUE0tKn25IhngzxheKJrLJYE-GeQDV5Anc-rMqwvzAcAe7Wje3zTrvmjXjNVKZ82P_gfjXlJKckGyxJkX7ZP0aOVBp-ikntIEEt32QvWc3HbZHtLpkMlbEg8x4lZ4s4CenU4zehqDOK_YrdBjkoiaqVTVVQckAE7iXpmw7ZlOOq0hNpAF0xbPTzHzfU1_qn6skMEQ2kvsG4q3lf779muDkd_EkRTFYpfpGYRE3FgEfO"/>
 </div>
 </div>
 </nav>
@@ -36,23 +36,23 @@ const ResponderView = () => {
 <p className="font-['Manrope'] font-medium uppercase tracking-[0.05em] text-[0.75rem] text-secondary">Safety Command</p>
 </div>
 <nav className="flex-1 space-y-1">
-<Link className="flex items-center gap-4 text-[#91472a] bg-white/40 backdrop-blur-3xl rounded-r-full py-4 pl-8 transition-all duration-500 ease-in-out" to="#">
+<Link className="flex items-center gap-4 text-[#91472a] bg-white/40 backdrop-blur-3xl rounded-r-full py-4 pl-8 transition-all duration-500 ease-in-out" href="#">
 <span className="material-symbols-outlined">grid_view</span>
 <span className="font-['Manrope'] font-medium uppercase tracking-[0.05em] text-[0.75rem]">Overview</span>
 </Link>
-<Link className="flex items-center gap-4 text-[#47664b] hover:pl-10 transition-all py-4 pl-8 font-['Manrope'] font-medium uppercase tracking-[0.05em] text-[0.75rem]" to="#">
+<Link className="flex items-center gap-4 text-[#47664b] hover:pl-10 transition-all py-4 pl-8 font-['Manrope'] font-medium uppercase tracking-[0.05em] text-[0.75rem]" href="#">
 <span className="material-symbols-outlined">map</span>
 <span>Tactical Map</span>
 </Link>
-<Link className="flex items-center gap-4 text-[#47664b] hover:pl-10 transition-all py-4 pl-8 font-['Manrope'] font-medium uppercase tracking-[0.05em] text-[0.75rem]" to="#">
+<Link className="flex items-center gap-4 text-[#47664b] hover:pl-10 transition-all py-4 pl-8 font-['Manrope'] font-medium uppercase tracking-[0.05em] text-[0.75rem]" href="#">
 <span className="material-symbols-outlined">groups</span>
 <span>Staffing</span>
 </Link>
-<Link className="flex items-center gap-4 text-[#47664b] hover:pl-10 transition-all py-4 pl-8 font-['Manrope'] font-medium uppercase tracking-[0.05em] text-[0.75rem]" to="#">
+<Link className="flex items-center gap-4 text-[#47664b] hover:pl-10 transition-all py-4 pl-8 font-['Manrope'] font-medium uppercase tracking-[0.05em] text-[0.75rem]" href="#">
 <span className="material-symbols-outlined">inventory_2</span>
 <span>Inventory</span>
 </Link>
-<Link className="flex items-center gap-4 text-[#47664b] hover:pl-10 transition-all py-4 pl-8 font-['Manrope'] font-medium uppercase tracking-[0.05em] text-[0.75rem]" to="#">
+<Link className="flex items-center gap-4 text-[#47664b] hover:pl-10 transition-all py-4 pl-8 font-['Manrope'] font-medium uppercase tracking-[0.05em] text-[0.75rem]" href="#">
 <span className="material-symbols-outlined">analytics</span>
 <span>Analytics</span>
 </Link>
@@ -68,14 +68,14 @@ const ResponderView = () => {
 </div>
 </div>
 <div className="space-y-4">
-<Link className="flex items-center gap-3 text-[#765700] text-xs uppercase tracking-widest hover:text-[#91472a]" to="#">
+<Link className="flex items-center gap-3 text-[#765700] text-xs uppercase tracking-widest hover:text-[#91472a]" href="#">
 <span className="material-symbols-outlined text-sm">help</span>
-                        Support
-                    </Link>
-<Link className="flex items-center gap-3 text-[#765700] text-xs uppercase tracking-widest hover:text-[#91472a]" to="#">
+                    Support
+                </Link>
+<Link className="flex items-center gap-3 text-[#765700] text-xs uppercase tracking-widest hover:text-[#91472a]" href="#">
 <span className="material-symbols-outlined text-sm">history</span>
-                        Archive
-                    </Link>
+                    Archive
+                </Link>
 </div>
 </div>
 </aside>
@@ -103,8 +103,8 @@ const ResponderView = () => {
 <p className="text-on-surface-variant text-sm font-light mb-auto leading-relaxed">Guest reported dizziness near the South Fountain. Initial vitals requested via remote sensor.</p>
 <div className="flex items-center gap-3 pt-6 border-t border-black/5">
 <div className="flex -space-x-2">
-<img className="w-8 h-8 rounded-full border-2 border-surface" data-alt="Small avatar of a responder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkEnJJ68iLqsjDIS0OpiikfP_q0vjP45PreboCxhGEIN0F0Ms6-z3ijdXm07Erj_mmB7JoMpP9RY4eljHz3_bMdqbCHCjYvK8m_GcXMx1UoLU2SOy1d9P8xcD-40YOvsJ7fubPRH5Nm3HRXQGvJ5JQD9LaAUT5Bd_WFdGPdlw3REYjNxJIFVS3RWpRBdwJQnb3bqHwMnOnG2D5WOqgdGQVFoE4sP6-jwR7eLIR1Xwa2nvVumzyzVZLdl0qTcHlmUJQtGRofoRi8d6n" />
-<img className="w-8 h-8 rounded-full border-2 border-surface" data-alt="Small avatar of another responder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-woTcyqmrL4DSc1joCClRDH7srZqkn_lC9-Ncn7MbTi47c2vAsZOJkk72APYCdrXsuhh2wxkcPrO10h6fxmP6ErRVWEiZyrjSxsLrln_zcGgAzJrU5eIGjnZup2UHplRv0_oGGcgje4oI0YnXwIFHPyKCNtt6Wcu9ICCZ_Ujcq0jSyyIjs4lVg0rQOjpdZYVE4L4Ew_5Rna8PHjBaWQs3zgewySnwpP0l1ZWwvoM4N8LZQRhOfg9f4OTqvCFkV6KiJdXo-JqcUoo_" />
+<img className="w-8 h-8 rounded-full border-2 border-surface" data-alt="Small avatar of a responder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkEnJJ68iLqsjDIS0OpiikfP_q0vjP45PreboCxhGEIN0F0Ms6-z3ijdXm07Erj_mmB7JoMpP9RY4eljHz3_bMdqbCHCjYvK8m_GcXMx1UoLU2SOy1d9P8xcD-40YOvsJ7fubPRH5Nm3HRXQGvJ5JQD9LaAUT5Bd_WFdGPdlw3REYjNxJIFVS3RWpRBdwJQnb3bqHwMnOnG2D5WOqgdGQVFoE4sP6-jwR7eLIR1Xwa2nvVumzyzVZLdl0qTcHlmUJQtGRofoRi8d6n"/>
+<img className="w-8 h-8 rounded-full border-2 border-surface" data-alt="Small avatar of another responder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-woTcyqmrL4DSc1joCClRDH7srZqkn_lC9-Ncn7MbTi47c2vAsZOJkk72APYCdrXsuhh2wxkcPrO10h6fxmP6ErRVWEiZyrjSxsLrln_zcGgAzJrU5eIGjnZup2UHplRv0_oGGcgje4oI0YnXwIFHPyKCNtt6Wcu9ICCZ_Ujcq0jSyyIjs4lVg0rQOjpdZYVE4L4Ew_5Rna8PHjBaWQs3zgewySnwpP0l1ZWwvoM4N8LZQRhOfg9f4OTqvCFkV6KiJdXo-JqcUoo_"/>
 </div>
 <span className="text-xs text-on-surface-variant font-medium">2 Team Members En Route</span>
 </div>
@@ -133,7 +133,7 @@ const ResponderView = () => {
 <button className="bg-white/40 backdrop-blur-3xl border border-white/40 text-primary px-6 py-3 rounded-full font-bold text-sm transition-all hover:bg-white/60">Open Live Feed</button>
 </div>
 <div className="md:w-1/2 h-48 md:h-auto rounded-2xl overflow-hidden shadow-inner border border-white/30">
-<img className="w-full h-full object-cover opacity-90" data-alt="High-angle drone view of a minimalist architectural terrace with clean lines and warm stone flooring" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAo-9Ug0ThoA9r7AfHNAPm9_NLbQf4JtXITxJkOefoezO1hl8PXE6Q9z2HXZFUa_t7C4kw9nLN0ddsX3dOcgAAhxx3XmT0jmGHWbEbn0E474CXZ7vRnmfNUAjlcr7W64FOfniUOCqlqSrQrMdBjqjnzDBmvc1NSu_tV8W08muj70ZlIIEezm1WtV9RruNKDQeqvTL3VtnKXHGLS3LNcIfL8jktTlB1Qd94lZmPUsd-FJ7tscMoVUWW2lfvnG5DUqZQOMQuSn88xTeqH" />
+<img className="w-full h-full object-cover opacity-90" data-alt="High-angle drone view of a minimalist architectural terrace with clean lines and warm stone flooring" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAo-9Ug0ThoA9r7AfHNAPm9_NLbQf4JtXITxJkOefoezO1hl8PXE6Q9z2HXZFUa_t7C4kw9nLN0ddsX3dOcgAAhxx3XmT0jmGHWbEbn0E474CXZ7vRnmfNUAjlcr7W64FOfniUOCqlqSrQrMdBjqjnzDBmvc1NSu_tV8W08muj70ZlIIEezm1WtV9RruNKDQeqvTL3VtnKXHGLS3LNcIfL8jktTlB1Qd94lZmPUsd-FJ7tscMoVUWW2lfvnG5DUqZQOMQuSn88xTeqH"/>
 </div>
 </div>
 </div>
@@ -151,8 +151,8 @@ const ResponderView = () => {
 <p className="text-sm text-on-surface-variant font-light">Occupant: Julian Vane</p>
 <p className="text-xs text-secondary mt-2 flex items-center gap-1">
 <span className="material-symbols-outlined text-xs">verified</span>
-                                    Priority Guest Status
-                                </p>
+                                Priority Guest Status
+                            </p>
 </div>
 <div className="space-y-6">
 <div className="flex items-center gap-4">
@@ -177,7 +177,7 @@ const ResponderView = () => {
 </div>
 
 <div className="rounded-2xl overflow-hidden mb-10 h-48 relative border border-white/40 shadow-lg">
-<img className="w-full h-full object-cover" data-alt="Topographic abstract map showing warm architectural layouts and pathways in a resort setting" data-location="Luxury Resort Layout" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAENEkT_lontTDsBreImNf3N3f6aZj9W4myhCNY_5bLtM2hb5vwqpYgwpz-xVpfa9p7F5qNb-J7TMzhOk5IZzSH_ccHV-3nXtgl3PA4RDdPJhe3ClL2qfg7QP4o4LvvsMI8gjk3az6hHg2k6Twg0gWJOQXPiAFFGOl77XxddbwIUUTWr4KC0s3Si-Yrsnixy5E0hfZaXB2c1WBZ2Q9UJICmQFdIXO_dyoB83qVnSR0Bdb0J753cxeS9UbN64ktFohV4lpSCFmzGdrTB" />
+<img className="w-full h-full object-cover" data-alt="Topographic abstract map showing warm architectural layouts and pathways in a resort setting" data-location="Luxury Resort Layout" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAENEkT_lontTDsBreImNf3N3f6aZj9W4myhCNY_5bLtM2hb5vwqpYgwpz-xVpfa9p7F5qNb-J7TMzhOk5IZzSH_ccHV-3nXtgl3PA4RDdPJhe3ClL2qfg7QP4o4LvvsMI8gjk3az6hHg2k6Twg0gWJOQXPiAFFGOl77XxddbwIUUTWr4KC0s3Si-Yrsnixy5E0hfZaXB2c1WBZ2Q9UJICmQFdIXO_dyoB83qVnSR0Bdb0J753cxeS9UbN64ktFohV4lpSCFmzGdrTB"/>
 <div className="absolute inset-0 bg-primary/10 pointer-events-none"></div>
 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
 <div className="w-4 h-4 bg-primary rounded-full animate-ping"></div>
@@ -185,8 +185,8 @@ const ResponderView = () => {
 </div>
 
 <button className="liquid-glass w-full py-5 rounded-full text-white font-extrabold tracking-widest text-sm uppercase shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98]">
-                            Signal Resolution
-                        </button>
+                        Signal Resolution
+                    </button>
 <p className="text-center text-[10px] text-on-surface-variant font-medium mt-4 uppercase tracking-tighter">Auth Required: Manager Override</p>
 </div>
 </aside>
@@ -196,12 +196,12 @@ const ResponderView = () => {
 <footer className="w-full py-10 mt-auto bg-white/40 backdrop-blur-3xl border-t border-white/20">
 <div className="flex flex-col md:flex-row justify-between items-center px-12 max-w-7xl mx-auto w-full">
 <p className="font-['Manrope'] font-light text-xs tracking-widest uppercase text-[#47664b] mb-4 md:mb-0">
-                    © 2024 Solar Pavilion Architectural Serenity. All rights reserved.
-                </p>
+                © 2024 Solar Pavilion Architectural Serenity. All rights reserved.
+            </p>
 <div className="flex gap-8">
-<Link className="font-['Manrope'] font-light text-xs tracking-widest uppercase text-[#765700] hover:text-[#91472a] transition-colors" to="#">Privacy Protocol</Link>
-<Link className="font-['Manrope'] font-light text-xs tracking-widest uppercase text-[#765700] hover:text-[#91472a] transition-colors" to="#">Security Compliance</Link>
-<Link className="font-['Manrope'] font-light text-xs tracking-widest uppercase text-[#765700] hover:text-[#91472a] transition-colors" to="#">Terms of Service</Link>
+<Link className="font-['Manrope'] font-light text-xs tracking-widest uppercase text-[#765700] hover:text-[#91472a] transition-colors" href="#">Privacy Protocol</Link>
+<Link className="font-['Manrope'] font-light text-xs tracking-widest uppercase text-[#765700] hover:text-[#91472a] transition-colors" href="#">Security Compliance</Link>
+<Link className="font-['Manrope'] font-light text-xs tracking-widest uppercase text-[#765700] hover:text-[#91472a] transition-colors" href="#">Terms of Service</Link>
 </div>
 </div>
 </footer>
@@ -209,6 +209,4 @@ const ResponderView = () => {
 
     </div>
   );
-};
-
-export default ResponderView;
+}

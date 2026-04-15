@@ -1,15 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ShieldAlert, Hotel, Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { ShieldAlert } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ThemeToggle from '../components/ui/ThemeToggle';
+import Button from '../components/ui/Button';
 
 const Home = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden">
-      {/* Background Decorators */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-terracotta/10 dark:bg-brand-terracotta/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-brand-olive/10 dark:bg-brand-olive/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Resort ambient gradients */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+        <div className="absolute top-[-20%] right-[-15%] w-[60%] h-[60%] rounded-full bg-brand-olive/8 blur-[120px]" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brand-teal/6 blur-[100px]" />
+        <div className="absolute top-[40%] left-[30%] w-[40%] h-[30%] rounded-full bg-brand-clay/5 blur-[80px]" />
+      </div>
 
       <div className="absolute top-6 right-6">
         <ThemeToggle />
@@ -33,45 +39,29 @@ const Home = () => {
           <p className="text-brand-dark/70 dark:text-brand-stone/70 text-lg">Crisis Response and Coordination Platform</p>
         </div>
 
-        {/* Portals */}
-        <div className="space-y-4">
-          <Link to="/guest/login" className="block outline-none">
-            <motion.div 
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-              className="glass-panel p-6 hover:bg-brand-stone/40 dark:hover:bg-brand-zinc/80 transition-colors duration-300 group cursor-pointer flex items-center gap-6"
-            >
-              <div className="p-4 bg-brand-terracotta/10 dark:bg-brand-terracotta/20 rounded-xl group-hover:bg-brand-terracotta/20 transition-colors">
-                <Hotel className="w-8 h-8 text-brand-terracotta" />
-              </div>
-              <div>
-                <h3 className="text-xl font-serif text-brand-dark dark:text-brand-stone mb-1">Guest Portal</h3>
-                <p className="text-brand-dark/60 dark:text-brand-stone/60 text-sm">Access SOS controls via room pin</p>
-              </div>
-            </motion.div>
-          </Link>
+        {/* Actions - Old-format buttons updated for the React UI */}
+        <div className="flex flex-col gap-4 mt-8 w-full max-w-xs mx-auto">
+          <Button
+            type="button"
+            variant="primary"
+            size="lg"
+            fullWidth
+            onClick={() => navigate('/guest/login')}
+            className="uppercase tracking-widest font-bold"
+          >
+            GUEST LOGIN
+          </Button>
 
-          <Link to="/staff/login" className="block outline-none">
-            <motion.div 
-               whileHover={{ scale: 1.02 }}
-               whileTap={{ scale: 0.98 }}
-               initial={{ opacity: 0, x: 20 }}
-               animate={{ opacity: 1, x: 0 }}
-               transition={{ delay: 0.3 }}
-              className="glass-panel p-6 hover:bg-brand-stone/40 dark:hover:bg-brand-zinc/80 transition-colors duration-300 group cursor-pointer flex items-center gap-6"
-            >
-              <div className="p-4 bg-brand-olive/10 dark:bg-brand-olive/20 rounded-xl group-hover:bg-brand-olive/20 transition-colors">
-                <Users className="w-8 h-8 text-brand-olive" />
-              </div>
-              <div>
-                <h3 className="text-xl font-serif text-brand-dark dark:text-brand-stone mb-1">Staff Access</h3>
-                <p className="text-brand-dark/60 dark:text-brand-stone/60 text-sm">Manager and Responder login</p>
-              </div>
-            </motion.div>
-          </Link>
+          <Button
+            type="button"
+            variant="secondary"
+            size="lg"
+            fullWidth
+            onClick={() => navigate('/staff/login')}
+            className="uppercase tracking-widest font-bold"
+          >
+            STAFF LOGIN
+          </Button>
         </div>
       </motion.div>
     </div>
