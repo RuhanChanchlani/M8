@@ -1,7 +1,49 @@
-import React from 'react';
+"use client";
+import React, { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import { getIncidents, resolveIncident } from '@/services/api';
+
+// Dynamically import the map to avoid SSR issues with Leaflet
+const IncidentMap = dynamic(() => import('@/components/IncidentMap'), { 
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-stone-100 animate-pulse rounded-2xl flex items-center justify-center text-stone-400">Loading Tactical Map...</div>
+});
 
 export default function Page() {
+  const [incidents, setIncidents] = useState<any[]>([]);
+  const [loadingId, setLoadingId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchIncidents = async () => {
+      try {
+        const res = await getIncidents();
+        setIncidents(res.data);
+      } catch (error) {
+        console.error('Failed to fetch incidents', error);
+      }
+    };
+    fetchIncidents();
+    const interval = setInterval(fetchIncidents, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleResolve = async (id: string) => {
+    setLoadingId(id);
+    try {
+      await resolveIncident(id);
+      const res = await getIncidents();
+      setIncidents(res.data);
+    } catch (error) {
+      console.error('Failed to resolve incident', error);
+      alert('Failed to resolve incident.');
+    } finally {
+      setLoadingId(null);
+    }
+  };
+
+  const activeIncidents = incidents.filter(i => i.status !== 'resolved');
+
   return (
     <div className="text-on-surface min-h-screen flex flex-col bg-background">
       
@@ -11,8 +53,8 @@ export default function Page() {
 <div className="flex items-center gap-8">
 <span className="text-2xl font-extrabold tracking-tighter text-[#91472a]">Solar Pavilion Response</span>
 <div className="hidden md:flex gap-8 font-['Manrope'] font-light tracking-tight">
-<Link className="text-[#91472a] font-bold border-b-2 border-[#91472a] pb-1" href="#">Dashboard</Link>
-<Link className="text-[#765700] hover:text-[#91472a] transition-colors" href="#">Incidents</Link>
+<Link className="text-[#91472a] font-bold border-b-2 border-[#91472a] pb-1" href="/">Dashboard</Link>
+<Link className="text-[#765700] hover:text-[#91472a] transition-colors" href="/responder">Incidents</Link>
 <Link className="text-[#765700] hover:text-[#91472a] transition-colors" href="#">Resources</Link>
 </div>
 </div>
@@ -90,53 +132,60 @@ export default function Page() {
 <section className="col-span-12 lg:col-span-8 space-y-8">
 <div className="flex justify-between items-end mb-4">
 <h2 className="text-2xl font-bold tracking-tight text-primary">My Active Deployments</h2>
-<span className="label-md text-tertiary uppercase tracking-widest text-xs font-bold bg-white/50 px-3 py-1 rounded-full backdrop-blur-md border border-white/30">4 Priority Signals</span>
+<span className="label-md text-tertiary uppercase tracking-widest text-xs font-bold bg-white/50 px-3 py-1 rounded-full backdrop-blur-md border border-white/30">{activeIncidents.length} Priority Signals</span>
 </div>
 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-<div className="glass-card rounded-3xl p-8 flex flex-col h-[340px] shadow-2xl shadow-black/5 transition-all hover:translate-y-[-4px]">
-<div className="flex justify-between items-start mb-6">
-<span className="bg-secondary/20 text-secondary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest backdrop-blur-md border border-secondary/20">Medical • Zone 4</span>
-<span className="material-symbols-outlined text-primary" style={{fontVariationSettings: "'FILL' 1"}}>emergency</span>
-</div>
-<h3 className="text-2xl font-bold mb-2">Atrium Sunstroke</h3>
-<p className="text-on-surface-variant text-sm font-light mb-auto leading-relaxed">Guest reported dizziness near the South Fountain. Initial vitals requested via remote sensor.</p>
-<div className="flex items-center gap-3 pt-6 border-t border-black/5">
-<div className="flex -space-x-2">
-<img className="w-8 h-8 rounded-full border-2 border-surface" data-alt="Small avatar of a responder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkEnJJ68iLqsjDIS0OpiikfP_q0vjP45PreboCxhGEIN0F0Ms6-z3ijdXm07Erj_mmB7JoMpP9RY4eljHz3_bMdqbCHCjYvK8m_GcXMx1UoLU2SOy1d9P8xcD-40YOvsJ7fubPRH5Nm3HRXQGvJ5JQD9LaAUT5Bd_WFdGPdlw3REYjNxJIFVS3RWpRBdwJQnb3bqHwMnOnG2D5WOqgdGQVFoE4sP6-jwR7eLIR1Xwa2nvVumzyzVZLdl0qTcHlmUJQtGRofoRi8d6n"/>
-<img className="w-8 h-8 rounded-full border-2 border-surface" data-alt="Small avatar of another responder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-woTcyqmrL4DSc1joCClRDH7srZqkn_lC9-Ncn7MbTi47c2vAsZOJkk72APYCdrXsuhh2wxkcPrO10h6fxmP6ErRVWEiZyrjSxsLrln_zcGgAzJrU5eIGjnZup2UHplRv0_oGGcgje4oI0YnXwIFHPyKCNtt6Wcu9ICCZ_Ujcq0jSyyIjs4lVg0rQOjpdZYVE4L4Ew_5Rna8PHjBaWQs3zgewySnwpP0l1ZWwvoM4N8LZQRhOfg9f4OTqvCFkV6KiJdXo-JqcUoo_"/>
-</div>
-<span className="text-xs text-on-surface-variant font-medium">2 Team Members En Route</span>
-</div>
-</div>
+{activeIncidents.length === 0 ? (
+  <div className="col-span-2 glass-card rounded-3xl p-8 flex flex-col items-center justify-center h-[340px] shadow-2xl shadow-black/5 text-center">
+    <span className="material-symbols-outlined text-6xl text-primary/50 mb-4">task_alt</span>
+    <h3 className="text-2xl font-bold mb-2">No Active Deployments</h3>
+    <p className="text-on-surface-variant">All clear. Monitoring systems are nominal.</p>
+  </div>
+) : activeIncidents.map((incident) => {
+  let icon = 'emergency';
+  let colorClass = 'bg-secondary/20 text-secondary border-secondary/20';
+  let iconColor = 'text-primary';
+  
+  if (incident.type === 'medical') { icon = 'medical_services'; colorClass = 'bg-[#765700]/20 text-[#765700] border-[#765700]/20'; iconColor = 'text-[#765700]'; }
+  else if (incident.type === 'fire') { icon = 'local_fire_department'; colorClass = 'bg-[#91472a]/20 text-[#91472a] border-[#91472a]/20'; iconColor = 'text-[#91472a]'; }
+  else if (incident.type === 'security') { icon = 'policy'; colorClass = 'bg-emerald-600/20 text-emerald-600 border-emerald-600/20'; iconColor = 'text-emerald-600'; }
 
-<div className="glass-card rounded-3xl p-8 flex flex-col h-[340px] shadow-2xl shadow-black/5 transition-all hover:translate-y-[-4px]">
-<div className="flex justify-between items-start mb-6">
-<span className="bg-primary/20 text-primary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest backdrop-blur-md border border-primary/20">Logistics • Poolside</span>
-<span className="material-symbols-outlined text-tertiary">water_drop</span>
-</div>
-<h3 className="text-2xl font-bold mb-2">Filtration Alert</h3>
-<p className="text-on-surface-variant text-sm font-light mb-auto leading-relaxed">Secondary pump pressure drop detected in infinity pool reservoir. Inspection required within 15min.</p>
-<div className="flex items-center gap-3 pt-6 border-t border-black/5">
-<span className="text-xs text-primary font-bold">Action Required: Sensor Check</span>
-</div>
-</div>
+  return (
+    <div key={incident.id} className="glass-card rounded-3xl p-8 flex flex-col h-[340px] shadow-2xl shadow-black/5 transition-all hover:translate-y-[-4px]">
+      <div className="flex justify-between items-start mb-6">
+        <span className={`${colorClass} px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest backdrop-blur-md border`}>
+          {incident.type} • {incident.room || 'General'}
+        </span>
+        <span className={`material-symbols-outlined ${iconColor}`} style={{fontVariationSettings: "'FILL' 1"}}>{icon}</span>
+      </div>
+      <h3 className="text-2xl font-bold mb-2 capitalize">{incident.type} Alert</h3>
+      <p className="text-on-surface-variant text-sm font-light mb-4 leading-relaxed">{incident.description}</p>
+      
+      {incident.recommended_action && (
+        <div className="bg-primary/10 border border-primary/20 rounded-xl p-4 mb-auto">
+          <p className="text-[10px] uppercase tracking-widest font-black text-primary mb-1 flex items-center gap-1">
+            <span className="material-symbols-outlined text-xs">smart_toy</span>
+            AI Recommended Action
+          </p>
+          <p className="text-xs text-on-surface font-medium italic">"{incident.recommended_action}"</p>
+        </div>
+      )}
+      
+      <div className="flex items-center justify-between pt-6 border-t border-black/5 mt-4">
+        <span className="text-xs text-on-surface-variant font-medium uppercase tracking-wider">Severity: {incident.severity}</span>
+        <button 
+          onClick={() => handleResolve(incident.id)}
+          disabled={loadingId === incident.id}
+          className="bg-[#91472a] text-white px-5 py-2 rounded-full text-xs font-bold transition-all hover:brightness-110 disabled:opacity-50 uppercase tracking-widest"
+        >
+          {loadingId === incident.id ? 'Resolving...' : 'Resolve'}
+        </button>
+      </div>
+    </div>
+  );
+})}
 
-<div className="glass-card rounded-3xl p-8 flex flex-col md:col-span-2 shadow-2xl shadow-black/5 transition-all hover:translate-y-[-4px] relative overflow-hidden">
-<div className="relative z-10 flex flex-col md:flex-row gap-8">
-<div className="md:w-1/2">
-<div className="mb-6">
-<span className="bg-tertiary/20 text-tertiary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest backdrop-blur-md border border-tertiary/20">Security • VIP Pavilion</span>
-</div>
-<h3 className="text-3xl font-extrabold mb-4">Unidentified Signal</h3>
-<p className="text-on-surface-variant text-base font-light mb-6 leading-relaxed">Unrecognized RFID signature detected in the Private Terrace. Security sweep initiated. Monitor drone feed for confirmation.</p>
-<button className="bg-white/40 backdrop-blur-3xl border border-white/40 text-primary px-6 py-3 rounded-full font-bold text-sm transition-all hover:bg-white/60">Open Live Feed</button>
-</div>
-<div className="md:w-1/2 h-48 md:h-auto rounded-2xl overflow-hidden shadow-inner border border-white/30">
-<img className="w-full h-full object-cover opacity-90" data-alt="High-angle drone view of a minimalist architectural terrace with clean lines and warm stone flooring" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAo-9Ug0ThoA9r7AfHNAPm9_NLbQf4JtXITxJkOefoezO1hl8PXE6Q9z2HXZFUa_t7C4kw9nLN0ddsX3dOcgAAhxx3XmT0jmGHWbEbn0E474CXZ7vRnmfNUAjlcr7W64FOfniUOCqlqSrQrMdBjqjnzDBmvc1NSu_tV8W08muj70ZlIIEezm1WtV9RruNKDQeqvTL3VtnKXHGLS3LNcIfL8jktTlB1Qd94lZmPUsd-FJ7tscMoVUWW2lfvnG5DUqZQOMQuSn88xTeqH"/>
-</div>
-</div>
-</div>
 </div>
 </section>
 
@@ -176,12 +225,8 @@ export default function Page() {
 </div>
 </div>
 
-<div className="rounded-2xl overflow-hidden mb-10 h-48 relative border border-white/40 shadow-lg">
-<img className="w-full h-full object-cover" data-alt="Topographic abstract map showing warm architectural layouts and pathways in a resort setting" data-location="Luxury Resort Layout" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAENEkT_lontTDsBreImNf3N3f6aZj9W4myhCNY_5bLtM2hb5vwqpYgwpz-xVpfa9p7F5qNb-J7TMzhOk5IZzSH_ccHV-3nXtgl3PA4RDdPJhe3ClL2qfg7QP4o4LvvsMI8gjk3az6hHg2k6Twg0gWJOQXPiAFFGOl77XxddbwIUUTWr4KC0s3Si-Yrsnixy5E0hfZaXB2c1WBZ2Q9UJICmQFdIXO_dyoB83qVnSR0Bdb0J753cxeS9UbN64ktFohV4lpSCFmzGdrTB"/>
-<div className="absolute inset-0 bg-primary/10 pointer-events-none"></div>
-<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-<div className="w-4 h-4 bg-primary rounded-full animate-ping"></div>
-</div>
+<div className="rounded-2xl overflow-hidden mb-10 h-64 relative border border-white/40 shadow-lg">
+  <IncidentMap incidents={activeIncidents} zoom={12} />
 </div>
 
 <button className="liquid-glass w-full py-5 rounded-full text-white font-extrabold tracking-widest text-sm uppercase shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98]">

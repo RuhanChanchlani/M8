@@ -1,7 +1,25 @@
-import React from 'react';
+"use client";
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { getIncidents } from '@/services/api';
 
 export default function Page() {
+  const [incidents, setIncidents] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchIncidents = async () => {
+      try {
+        const res = await getIncidents();
+        setIncidents(res.data);
+      } catch (error) {
+        console.error('Failed to fetch incidents', error);
+      }
+    };
+    fetchIncidents();
+    const interval = setInterval(fetchIncidents, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="text-on-surface min-h-screen flex flex-col bg-background">
       
@@ -60,9 +78,9 @@ export default function Page() {
 <h1 className="text-2xl font-black tracking-tighter text-[#ffb59b] uppercase text-shadow-strong">Solar Pavilion Response</h1>
 <div className="flex items-center gap-8">
 <div className="flex items-center gap-6 font-['Manrope'] font-bold tracking-tight">
-<Link className="text-[#ffdfa0] hover:text-[#ffb59b] transition-colors text-shadow-strong" href="#">Dashboard</Link>
-<Link className="text-[#ffb59b] font-black border-b-2 border-[#ffb59b] pb-1 text-shadow-strong" href="#">Incidents</Link>
-<Link className="text-[#ffdfa0] hover:text-[#ffb59b] transition-colors text-shadow-strong" href="#">Resources</Link>
+<Link className="text-[#ffdfa0] hover:text-[#ffb59b] transition-colors text-shadow-strong" href="/">Dashboard</Link>
+<Link className="text-[#ffb59b] font-black border-b-2 border-[#ffb59b] pb-1 text-shadow-strong" href="/command">Command</Link>
+<Link className="text-[#ffdfa0] hover:text-[#ffb59b] transition-colors text-shadow-strong" href="/responder">Incidents</Link>
 </div>
 <div className="flex items-center gap-4">
 <button className="liquid-glass text-white px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest active:scale-95 transition-transform bg-[#91472a]/80">
@@ -107,22 +125,28 @@ export default function Page() {
 </div>
 
 <div className="flex-1 relative">
+{incidents.map((incident, idx) => {
+  const top = 20 + (idx * 15) % 60;
+  const left = 30 + (idx * 25) % 50;
+  let icon = 'info';
+  let colorClass = 'bg-gray-500';
+  if (incident.type === 'medical') { icon = 'medical_services'; colorClass = 'bg-[#765700]'; }
+  if (incident.type === 'fire') { icon = 'local_fire_department'; colorClass = 'bg-primary'; }
+  if (incident.type === 'security') { icon = 'policy'; colorClass = 'bg-emerald-600'; }
 
-<div className="absolute top-[20%] left-[35%] pointer-events-auto group/marker cursor-pointer">
-<div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white shadow-2xl shadow-primary animate-bounce border-2 border-white/50">
-<span className="material-symbols-outlined">local_fire_department</span>
-</div>
-<div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 deep-glass p-4 rounded-2xl w-56 opacity-0 group-hover/marker:opacity-100 transition-opacity pointer-events-none">
-<p className="text-[#ffb59b] font-black text-[10px] uppercase tracking-widest mb-1">Kitchen Unit 04</p>
-<p className="text-white/90 text-xs font-bold leading-relaxed">Excessive heat detected in ventilation shaft. Sensors active.</p>
-</div>
-</div>
-
-<div className="absolute top-[60%] left-[70%] pointer-events-auto group/marker cursor-pointer">
-<div className="w-10 h-10 bg-[#765700] rounded-full flex items-center justify-center text-white shadow-2xl shadow-yellow-900 border-2 border-white/50">
-<span className="material-symbols-outlined text-lg">medical_services</span>
-</div>
-</div>
+  return (
+    <div key={incident.id} className={`absolute top-[${top}%] left-[${left}%] pointer-events-auto group/marker cursor-pointer`} style={{top: `${top}%`, left: `${left}%`}}>
+      <div className={`w-12 h-12 ${colorClass} rounded-full flex items-center justify-center text-white shadow-2xl animate-bounce border-2 border-white/50`}>
+        <span className="material-symbols-outlined">{icon}</span>
+      </div>
+      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 deep-glass p-4 rounded-2xl w-56 opacity-0 group-hover/marker:opacity-100 transition-opacity pointer-events-none z-50">
+        <p className="text-[#ffb59b] font-black text-[10px] uppercase tracking-widest mb-1">{incident.room || 'Unknown Location'}</p>
+        <p className="text-white/90 text-xs font-bold leading-relaxed">{incident.description}</p>
+        <div className="mt-2 text-[10px] font-bold uppercase tracking-widest text-white/60">Status: {incident.status}</div>
+      </div>
+    </div>
+  );
+})}
 </div>
 </div>
 </div>
@@ -187,65 +211,47 @@ export default function Page() {
 </div>
 <div className="flex-1 overflow-y-auto pr-2 space-y-4">
 
-<div className="deep-glass rounded-2xl p-5 border border-white/10 group hover:bg-white/10 transition-all duration-500">
-<div className="flex justify-between mb-3">
-<div className="flex items-center gap-3">
-<div className="w-9 h-9 rounded-full bg-[#ffb59b]/20 flex items-center justify-center border border-[#ffb59b]/30">
-<span className="material-symbols-outlined text-[#ffb59b] text-sm">security</span>
-</div>
-<div>
-<h4 className="text-xs font-black text-white">North Pavilion Entrance</h4>
-<p className="text-[9px] text-[#adcfae] uppercase tracking-widest font-black">14:22:05 — Security</p>
-</div>
-</div>
-<button className="text-[#ffb59b]"><span className="material-symbols-outlined text-lg">more_vert</span></button>
-</div>
-<div className="h-32 rounded-xl overflow-hidden mb-3 relative group border border-white/10">
-<img className="w-full h-full object-cover brightness-75 group-hover:brightness-100 transition-all" data-alt="luxury resort lobby entrance" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB73BZgnMivK8j2rW4O0pFukFjRuaQGFMHEqM2lKR_1uUMUn_qia3yHQzY9WdtjNrcG2EJFa7ZCbkVEPKVXz4t6EYFiKB4_FdxP9HGApdSIK95YtZNE3mYrLCYBbbuA88itUuIoTKcOIlcVk-kdxCTAgbAHoaE3gR_HAOPIqCE82hkwazq0rZtnWTzt-h2xc20nvkRdiVCmSG5Rb6ZYph-oIClTD7V7h5hCfh5DYWJY5KuqWFNdZ8AEFDPE94iHmiJiPjCHgzjemI31"/>
-<div className="absolute inset-0 bg-black/40 opacity-40 group-hover:opacity-0 transition-opacity"></div>
-<div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-<span className="material-symbols-outlined text-white text-5xl drop-shadow-xl">play_circle</span>
-</div>
-</div>
-<p className="text-[11px] text-white/80 leading-relaxed font-bold">System identified unrecognized logistics vehicle at service gate. ID verification requested by autonomous unit S-04.</p>
-</div>
+{incidents.map((incident) => {
+  let icon = 'info';
+  let color = 'text-white';
+  let bg = 'bg-white/20';
+  if (incident.type === 'medical') { icon = 'medical_services'; color = 'text-[#ffdfa0]'; bg = 'bg-[#ffdfa0]/20'; }
+  if (incident.type === 'fire') { icon = 'local_fire_department'; color = 'text-[#ffb59b]'; bg = 'bg-[#ffb59b]/20'; }
+  if (incident.type === 'security') { icon = 'security'; color = 'text-[#adcfae]'; bg = 'bg-[#adcfae]/20'; }
 
-<div className="deep-glass rounded-2xl p-5 border border-white/10 group hover:bg-white/10 transition-all duration-500">
-<div className="flex justify-between mb-3">
-<div className="flex items-center gap-3">
-<div className="w-9 h-9 rounded-full bg-[#ffdfa0]/20 flex items-center justify-center border border-[#ffdfa0]/30">
-<span className="material-symbols-outlined text-[#ffdfa0] text-sm">thermostat</span>
-</div>
-<div>
-<h4 className="text-xs font-black text-white">West Terrace Spa</h4>
-<p className="text-[9px] text-[#adcfae] uppercase tracking-widest font-black">14:18:44 — Environmental</p>
-</div>
-</div>
-</div>
-<p className="text-[11px] text-white/80 leading-relaxed font-bold mb-4">Ambient temperature optimization complete. Adjustment made for solar gain forecast.</p>
-<div className="flex gap-2">
-<span className="text-[9px] font-black px-3 py-1 bg-white/10 rounded-full text-[#ffdfa0] uppercase tracking-tighter border border-white/5">Optimization: +1.2°C</span>
-<span className="text-[9px] font-black px-3 py-1 bg-white/10 rounded-full text-[#ffdfa0] uppercase tracking-tighter border border-white/5">Energy: Solar</span>
-</div>
-</div>
+  return (
+    <div key={incident.id} className="deep-glass rounded-2xl p-5 border border-white/10 group hover:bg-white/10 transition-all duration-500">
+      <div className="flex justify-between mb-3">
+        <div className="flex items-center gap-3">
+          <div className={`w-9 h-9 rounded-full ${bg} flex items-center justify-center border border-white/30`}>
+            <span className={`material-symbols-outlined ${color} text-sm`}>{icon}</span>
+          </div>
+          <div>
+            <h4 className="text-xs font-black text-white">{incident.room || 'General'}</h4>
+            <p className={`text-[9px] ${color} uppercase tracking-widest font-black`}>
+              {new Date(incident.created_at).toLocaleTimeString()} — {incident.type}
+            </p>
+          </div>
+        </div>
+        <button className={color}><span className="material-symbols-outlined text-lg">more_vert</span></button>
+      </div>
+      <p className="text-[11px] text-white/80 leading-relaxed font-bold">{incident.description}</p>
+      <div className="flex gap-2 mt-3">
+        <span className={`text-[9px] font-black px-3 py-1 bg-white/10 rounded-full ${color} uppercase tracking-tighter border border-white/5`}>
+          Severity: {incident.severity}
+        </span>
+        <span className={`text-[9px] font-black px-3 py-1 bg-white/10 rounded-full ${color} uppercase tracking-tighter border border-white/5`}>
+          Status: {incident.status}
+        </span>
+      </div>
+    </div>
+  );
+})}
 
-<div className="deep-glass rounded-2xl p-5 border border-white/10 group hover:bg-white/10 transition-all duration-500">
-<div className="flex justify-between mb-3">
-<div className="flex items-center gap-3">
-<div className="w-9 h-9 rounded-full bg-[#adcfae]/20 flex items-center justify-center border border-[#adcfae]/30">
-<span className="material-symbols-outlined text-[#adcfae] text-sm">water_drop</span>
-</div>
-<div>
-<h4 className="text-xs font-black text-white">Grand Pool Hydro-Loop</h4>
-<p className="text-[9px] text-[#adcfae] uppercase tracking-widest font-black">14:15:20 — Maintenance</p>
-</div>
-</div>
-</div>
-<div className="h-32 rounded-xl overflow-hidden mb-3 border border-white/10">
-<img className="w-full h-full object-cover brightness-75 group-hover:brightness-100 transition-all" data-alt="crystalline clear infinity pool" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOO6UeW5w3ODOZGnwprNGCTC_35rgNzqZAT1jrrf1JOj9zBxE9xrtxItG84F3wTtAK66KovpvZetbGfXHsG8sNbCb-_PAWWMfuZ7u4cLmfihuJ8kGq76wfmfKe3tOiP_R48NIjZcnDwkhLLkNfpuISslusOuEgVbwXscTpGF9nv_kxv5Slby1IwnraQTFXbVNCetrJm6-gsEhDLQvGwazAThuVim8L31Oj-ROJO7cs2I0GEBPY-SIjixa_UvD1EhialtcKIp6EqSRq"/>
-</div>
-<p className="text-[11px] text-white/80 leading-relaxed font-bold">Filtration cycle #04 complete. pH and salinity levels within optimal luxury range.</p>
-</div>
+{incidents.length === 0 && (
+  <div className="text-center text-white/60 text-xs font-bold uppercase tracking-widest mt-10">No active incidents</div>
+)}
+
 </div>
 
 <div className="mt-auto py-6 border-t border-white/10 flex flex-col gap-4">
