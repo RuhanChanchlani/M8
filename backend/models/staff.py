@@ -1,15 +1,18 @@
-# staff.py — Pydantic models for staff data
-#
-# TODO: Define these Pydantic BaseModel classes:
-#
-# class StaffRole(str, Enum):
-#     manager, security, housekeeping, medical
-#
-# class Staff:
-#     id: str
-#     name: str
-#     role: StaffRole
-#     floor: int
-#     available: bool
-#     fcm_token: str  (for push notifications)
-#     phone: str      (for SMS)
+from pydantic import BaseModel
+from enum import Enum
+from typing import Optional
+
+class StaffRole(str, Enum):
+    manager = "manager"
+    security = "security"
+    housekeeping = "housekeeping"
+    medical = "medical"
+
+class Staff(BaseModel):
+    id: str
+    name: str
+    role: StaffRole
+    floor: int
+    available: bool = True
+    fcm_token: Optional[str] = None
+    phone: Optional[str] = None

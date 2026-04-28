@@ -1,15 +1,31 @@
-# assignment_service.py — Responder auto-assignment logic
-#
-# TODO:
-#
-# def find_best_responder(incident_type: str, floor: int) -> str | None:
-#   - Fetch all available staff from firebase_service.get_available_staff()
-#   - Filter by role relevance:
-#       fire → security first, then housekeeping
-#       medical → medical role first, then any
-#       security → security role only
-#   - Among matched role, prefer staff on the same floor as the incident
-#   - Return the staff_id of the best match, or None if no one available
-#
-# This keeps it simple for MVP — no complex ML needed.
-# Just role matching + floor proximity = good enough for judges.
+from services.firebase_service import get_available_staff
+
+def find_best_responder(incident_type: str, floor: int) -> dict | None:
+    available_staff = get_available_staff()
+    if not available_staff:
+        return None
+
+    # Role relevance mapping
+    role_priority = {
+        "fire": ["security", "housekeeping"],
+        "medical": ["medical"],
+        "security": ["security"],
+        "maintenance": ["housekeeping"],
+        "other": ["housekeeping", "security"]
+    }
+
+    type_key = incident_type.lower()
+    prioritized_roles = role_priority.get(type_key, ["security", "housekeeping"])
+    
+    # Try to find someone with a matching role
+    for role in prioritized_roles:
+        matching_staff = [s for s in available_staff if s.get('role') == role]
+        if matching_staff:
+            # Prefer same floor
+            same_floor = [s for s in matching_staff if s.get('floor') == floor]
+            if same_floor:
+                return same_floor[0]
+            return matching_staff[0]
+
+    # Fallback: any available staff
+    return available_staff[0]

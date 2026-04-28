@@ -5,17 +5,17 @@ import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import ThemeToggle from '../components/ui/ThemeToggle';
+import { useAuth } from '../context/AuthContext';
 
 const GuestLogin = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [roomNumber, setRoomNumber] = useState('');
   const [pin, setPin] = useState('');
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // In actual implementation, we read from Firebase to verify these match
-    // For now we persist them locally and push to the SOS view
-    localStorage.setItem('guest_session', JSON.stringify({ room: roomNumber }));
+    login('guest', roomNumber);
     navigate('/guest/sos');
   };
 

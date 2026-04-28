@@ -1,7 +1,16 @@
-import { useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Mock auth for development
+const AuthContext = createContext();
+
 export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};
+
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [staffProfile, setStaffProfile] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -10,9 +19,14 @@ export const useAuth = () => {
     // Check if there's a stored user in localStorage
     const storedUser = localStorage.getItem('rapid_user');
     if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
-      setUser(parsedUser);
-      setStaffProfile(parsedUser.profile);
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+        setStaffProfile(parsedUser.profile);
+      } catch (e) {
+        console.error("Failed to parse stored user", e);
+        localStorage.removeItem('rapid_user');
+      }
     }
     setLoading(false);
   }, []);
@@ -42,5 +56,18 @@ export const useAuth = () => {
     localStorage.removeItem('rapid_user');
   };
 
-  return { user, staffProfile, role: staffProfile?.role, loading, login, logout };
+  const value = {
+    user,
+    staffProfile,
+    role: staffProfile?.role,
+    loading,
+    login,
+    logout
+  };
+
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 };

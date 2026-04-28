@@ -5,16 +5,19 @@ import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import ThemeToggle from '../components/ui/ThemeToggle';
+import { useAuth } from '../context/AuthContext';
 
 const StaffLogin = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [roleMode, setRoleMode] = useState('responder'); // manager or responder for demo
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Firebase Auth goes here
+    // For demo, any email/password works
+    login(roleMode, email);
     if (roleMode === 'manager') {
       navigate('/dashboard');
     } else {

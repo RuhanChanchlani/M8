@@ -3,11 +3,17 @@ import { ShieldAlert, Flame, Stethoscope, Shield, Wrench, CheckCircle2 } from 'l
 import { motion, AnimatePresence } from 'framer-motion';
 import Header from '../components/layout/Header';
 import Button from '../components/ui/Button';
+import EvacuationMap from '../components/guest/EvacuationMap';
+import { useAuth } from '../context/AuthContext';
+
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
 
 const GuestSOS = () => {
+  const { staffProfile } = useAuth();
   const [status, setStatus] = useState('idle'); // idle, reporting, reported
   const [emergencyType, setEmergencyType] = useState(null);
   const [description, setDescription] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const emergencyTypes = [
     { id: 'fire', icon: Flame, label: 'Fire' },
@@ -15,6 +21,29 @@ const GuestSOS = () => {
     { id: 'security', icon: Shield, label: 'Security' },
     { id: 'maintenance', icon: Wrench, label: 'Maintenance' },
   ];
+
+  const handleSendAlert = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${BACKEND_URL}/incidents/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          room: staffProfile?.room || 'Unknown',
+          floor: 1, // Mock floor
+          description: description || `Emergency: ${emergencyType}`,
+          reported_by: 'guest'
+        }),
+      });
+      if (response.ok) {
+        setStatus('reported');
+      }
+    } catch (error) {
+      console.error('Failed to send alert:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-brand-stone dark:bg-brand-zinc transition-colors duration-500 overflow-hidden relative">
@@ -137,7 +166,7 @@ const GuestSOS = () => {
 
               <div className="flex gap-3 pt-4">
                 <Button variant="outline" className="flex-1 dark:text-brand-stone dark:border-brand-stone/20" onClick={() => { setStatus('idle'); setEmergencyType(null); }}>Cancel</Button>
-                <Button className="flex-1 shadow-lg shadow-brand-terracotta/30" onClick={() => setStatus('reported')} disabled={!emergencyType}>Send Alert</Button>
+                <Button className="flex-1 shadow-lg shadow-brand-terracotta/30" onClick={handleSendAlert} disabled={!emergencyType || loading}>{loading ? 'Sending...' : 'Send Alert'}</Button>
               </div>
             </motion.div>
           )}
@@ -171,6 +200,9 @@ const GuestSOS = () => {
                 <h3 className="text-2xl font-serif text-brand-dark dark:text-brand-stone mb-2">Help is on the way</h3>
                 <p className="text-brand-dark/70 dark:text-brand-stone/70">Your alert has been received. Please stay safe and follow any staff instructions.</p>
               </div>
+
+              {/* Evacuation Guidance */}
+              <EvacuationMap roomId={staffProfile?.room} />
 
               {/* Animated Live Tracker Simulation */}
               <div className="text-left bg-brand-stone/50 dark:bg-brand-dark/50 p-6 rounded-2xl border border-brand-dark/5 dark:border-brand-stone/5 relative">

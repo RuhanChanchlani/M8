@@ -6,15 +6,11 @@ import Header from '../components/layout/Header';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
-
-const INITIAL_INCIDENTS = [
-  { id: 'INC-001', room: '304', type: 'fire', severity: 'critical', desc: 'Smoke coming from bathroom', status: 'reported', time: '2m ago' },
-  { id: 'INC-002', room: '112', type: 'medical', severity: 'high', desc: 'Guest feeling dizzy', status: 'assigned', assignee: 'Staff_A', time: '15m ago' },
-  { id: 'INC-003', room: '405', type: 'maintenance', severity: 'low', desc: 'AC not cooling', status: 'assigned', assignee: 'Tech_M', time: '1h ago' }
-];
+import { useIncidents } from '../hooks/useIncidents';
+import { useAuth } from '../context/AuthContext';
 
 const Dashboard = () => {
-  const [incidents, setIncidents] = useState(INITIAL_INCIDENTS);
+  const { incidents, loading, error } = useIncidents();
   
   return (
     <div className="min-h-screen bg-brand-stone dark:bg-brand-zinc flex flex-col md:flex-row transition-colors duration-500">
@@ -71,9 +67,13 @@ const Dashboard = () => {
             <div className="lg:col-span-1 space-y-4 overflow-y-auto no-scrollbar pb-10">
               <h3 className="font-medium text-brand-dark/60 dark:text-brand-stone/60 flex justify-between items-center px-1">
                 Incoming Alerts
-                <Badge variant="critical">1 Critical</Badge>
+                <Badge variant="critical">{incidents.filter(i => i.severity === 'critical').length} Critical</Badge>
               </h3>
               
+              {loading && <p className="text-center text-brand-dark/50">Loading incidents...</p>}
+              {error && <p className="text-center text-red-500">Error: {error}</p>}
+              {!loading && !error && incidents.length === 0 && <p className="text-center text-brand-dark/50">No active incidents</p>}
+
               <AnimatePresence>
                 {incidents.map((inc, index) => (
                   <motion.div
@@ -90,16 +90,16 @@ const Dashboard = () => {
                         <div className="flex-1">
                           <div className="flex justify-between items-start mb-1">
                             <Badge variant={inc.severity}>{inc.type.toUpperCase()}</Badge>
-                            <span className="text-xs text-brand-dark/50 dark:text-brand-stone/40">{inc.time}</span>
+                            <span className="text-xs text-brand-dark/50 dark:text-brand-stone/40">{new Date(inc.created_at).toLocaleTimeString()}</span>
                           </div>
-                          <p className="text-sm font-medium text-brand-dark dark:text-brand-stone tracking-wide">{inc.desc}</p>
+                          <p className="text-sm font-medium text-brand-dark dark:text-brand-stone tracking-wide">{inc.description}</p>
                           
                           <div className="mt-3 flex gap-2">
-                            {inc.status === 'reported' ? (
+                            {inc.status === 'pending' ? (
                               <Button size="sm" className="w-full bg-brand-olive dark:bg-brand-terracotta hover:bg-brand-olive/90 h-8 text-xs">Assign Unit</Button>
                             ) : (
                               <div className="flex items-center gap-2 text-xs text-brand-olive dark:text-brand-terracotta font-medium bg-brand-olive/10 dark:bg-brand-terracotta/10 px-2 py-1 rounded-md w-full border border-brand-olive/20 dark:border-brand-terracotta/20">
-                                <Clock className="w-3 h-3" /> En Route: {inc.assignee}
+                                <Clock className="w-3 h-3" /> En Route: {inc.assigned_name || inc.assigned_to || 'Assigning...'}
                               </div>
                             )}
                           </div>

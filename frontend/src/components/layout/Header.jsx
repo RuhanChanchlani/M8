@@ -3,16 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Shield } from 'lucide-react';
 import Button from '../ui/Button';
 import ThemeToggle from '../ui/ThemeToggle';
+import { useAuth } from '../../context/AuthContext';
 
-const Header = ({ showLogout = false, onLogout }) => {
+const Header = ({ showLogout = false }) => {
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const handleLogout = () => {
-    if (onLogout) {
-      onLogout();
-    } else {
-      navigate('/');
-    }
+    logout();
+    navigate('/');
   };
 
   return (
