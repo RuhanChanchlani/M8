@@ -4,6 +4,7 @@
 
 @layer base {
   body {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 12c1.1-2 2-3 4-4s4-1 6 0 3 2 4 4 1 5 0 7-3 4-4 4-3-1-4-3-1-3-1-5 0-3 0-3M54 48c-1.1 2-2 3-4 4s-4 1-6 0-3-2-4-4-1-5 0-7 3-4 4-4 3 1 4 3 1 3 1 5 0 3 0 3' fill='%23e6dfd3' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
     @apply bg-brand-stone text-brand-dark font-sans antialiased transition-colors duration-500 ease-in-out;
   }
   
@@ -34,4 +35,85 @@
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.glass-heavy {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(25px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+.deep-glass {
+  background: rgba(25, 20, 15, 0.65);
+  backdrop-filter: blur(40px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+}
+.primary-gradient {
+  background: linear-gradient(135deg, #91472a 0%, #af5e3f 100%);
+  position: relative;
+  overflow: hidden;
+}
+.sidebar-blur {
+  background: rgba(15, 12, 10, 0.7);
+  backdrop-filter: blur(40px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+.text-shadow-strong {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+.header-glass {
+  background: rgba(15, 12, 10, 0.4);
+  backdrop-filter: blur(25px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+.glass-card {
+  background: rgba(255, 248, 239, 0.35);
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+.stone-overlay {
+  background-color: rgba(255, 248, 239, 0.75);
+  min-height: 100vh;
+}
+
+/* Stitch Project Classes */
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+}
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+.liquid-glass-emerald {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.8) 0%, rgba(5, 150, 105, 0.9) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 40px rgba(16, 185, 129, 0.5), inset 0 2px 10px rgba(255, 255, 255, 0.4);
+}
+.safety-glow-emerald {
+  box-shadow: 0 0 60px -10px rgba(16, 185, 129, 0.6);
+}
+.bg-main-image {
+  background-image: url(https://lh3.googleusercontent.com/aida/ADBb0uhOQK3zEhxAOul0A6KyMPRnH-0dpzJ5vQiHu20ntS1-MIxATrExL3wtw38O6siXDd7zVuKXv3hn2fwldh_J6je3gT6jTeAGQGWXQjUpT0W-3UBdaj49bXg06JghnOouiW7fN67M3NIwtBaseWrKFFJRbdkYrbiPK9ro1EWo070_WA_saN6_Cg5b7OjS0GWMDkPJ0N8WpyX62nJsWvyXBKgVm7QUZZoXLLlu2fCdCqmRRNSdFsck0C6zjzpzE9hdm0si5IP_RGUhuP0);
+  background-size: cover;
+  background-position: center;
+}
+.heavy-glass {
+  background: rgba(255, 248, 239, 0.65);
+  backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(29, 27, 22, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+.full-page-bg {
+  background-image: url(https://lh3.googleusercontent.com/aida/ADBb0uhOQK3zEhxAOul0A6KyMPRnH-0dpzJ5vQiHu20ntS1-MIxATrExL3wtw38O6siXDd7zVuKXv3hn2fwldh_J6je3gT6jTeAGQGWXQjUpT0W-3UBdaj49bXg06JghnOouiW7fN67M3NIwtBaseWrKFFJRbdkYrbiPK9ro1EWo070_WA_saN6_Cg5b7OjS0GWMDkPJ0N8WpyX62nJsWvyXBKgVm7QUZZoXLLlu2fCdCqmRRNSdFsck0C6zjzpzE9hdm0si5IP_RGUhuP0);
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
 }

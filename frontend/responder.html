@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Solar Pavilion Response | Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#f3ede4",
+                        "primary": "#91472a",
+                        "on-tertiary-container": "#fffbff",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#94492c",
+                        "on-secondary-fixed-variant": "#2f4d34",
+                        "secondary-fixed": "#c8ecc9",
+                        "surface-container-low": "#f9f3ea",
+                        "secondary-fixed-dim": "#adcfae",
+                        "on-primary-container": "#fffbff",
+                        "inverse-on-surface": "#f6f0e7",
+                        "outline": "#87736c",
+                        "tertiary-fixed": "#ffdfa0",
+                        "surface-dim": "#dfd9d0",
+                        "error": "#ba1a1a",
+                        "secondary": "#47664b",
+                        "inverse-primary": "#ffb59b",
+                        "tertiary-fixed-dim": "#fbbc00",
+                        "primary-fixed-dim": "#ffb59b",
+                        "outline-variant": "#dac1b9",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#fff8ef",
+                        "primary-container": "#af5e3f",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#c8ecc9",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#380d00",
+                        "surface-container-highest": "#e8e2d9",
+                        "on-surface": "#1d1b16",
+                        "error-container": "#ffdad6",
+                        "on-background": "#1d1b16",
+                        "primary-fixed": "#ffdbcf",
+                        "on-tertiary-fixed": "#261a00",
+                        "surface": "#fff8ef",
+                        "on-tertiary-fixed-variant": "#5c4300",
+                        "on-surface-variant": "#54433d",
+                        "on-secondary-container": "#4c6c50",
+                        "surface-container-high": "#ede7de",
+                        "tertiary-container": "#956e00",
+                        "on-primary-fixed-variant": "#763217",
+                        "surface-variant": "#e8e2d9",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#fff8ef",
+                        "inverse-surface": "#33302a",
+                        "on-secondary-fixed": "#03210c",
+                        "tertiary": "#765700"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>body {
+    font-family: "Manrope", sans-serif;
+    background-image: url(https://lh3.googleusercontent.com/aida/ADBb0uhOQK3zEhxAOul0A6KyMPRnH-0dpzJ5vQiHu20ntS1-MIxATrExL3wtw38O6siXDd7zVuKXv3hn2fwldh_J6je3gT6jTeAGQGWXQjUpT0W-3UBdaj49bXg06JghnOouiW7fN67M3NIwtBaseWrKFFJRbdkYrbiPK9ro1EWo070_WA_saN6_Cg5b7OjS0GWMDkPJ0N8WpyX62nJsWvyXBKgVm7QUZZoXLLlu2fCdCqmRRNSdFsck0C6zjzpzE9hdm0si5IP_RGUhuP0);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed
+    }
+.glass-card {
+    background: rgba(255, 248, 239, 0.35);
+    backdrop-filter: blur(60px);
+    -webkit-backdrop-filter: blur(60px);
+    border: 1px solid rgba(255, 255, 255, 0.4)
+    }
+.liquid-glass {
+    background: linear-gradient(135deg, #91472a 0%, #af5e3f 100%);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(145, 71, 42, 0.3)
+    }
+.liquid-glass::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.1) 100%);
+    pointer-events: none
+    }
+.stone-overlay {
+    background-color: rgba(255, 248, 239, 0.75);
+    min-height: 100vh
+    }</style>
+</head>
+<body class="text-on-surface min-h-screen flex flex-col">
+<div class="stone-overlay flex flex-col flex-1">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#fff8ef]/40 backdrop-blur-xl flex justify-between items-center px-12 py-6 shadow-[0_40px_60px_-15px_rgba(29,27,22,0.15)] bg-gradient-to-b from-white/30 to-transparent border-b border-white/20">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-extrabold tracking-tighter text-[#91472a]">Solar Pavilion Response</span>
+<div class="hidden md:flex gap-8 font-['Manrope'] font-light tracking-tight">
+<a class="text-[#91472a] font-bold border-b-2 border-[#91472a] pb-1" href="home.html">Home</a>
+<a class="text-[#765700] hover:text-[#91472a] transition-colors" href="staff_login.html">Staff Login</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-[#91472a] hover:backdrop-blur-3xl transition-all duration-300 p-2">notifications</button>
+<button onclick="logoutAndRedirect()" class="px-4 py-2 rounded-full border border-white/20 text-[#91472a] text-xs uppercase tracking-[0.18em] hover:bg-white/10 transition">Sign Out</button>
+<button class="liquid-glass text-white px-6 py-2 rounded-full font-semibold scale-95 active:opacity-80 transition-all">Emergency Alert</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-outline-variant">
+<img alt="Manager Profile" data-alt="Close up portrait of a professional response manager with a calm expression in warm natural sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXdwfBK1bYxjspGv-0nvL6SznBR3jyWlJf9kUE0tKn25IhngzxheKJrLJYE-GeQDV5Anc-rMqwvzAcAe7Wje3zTrvmjXjNVKZ82P_gfjXlJKckGyxJkX7ZP0aOVBp-ikntIEEt32QvWc3HbZHtLpkMlbEg8x4lZ4s4CenU4zehqDOK_YrdBjkoiaqVTVVQckAE7iXpmw7ZlOOq0hNpAF0xbPTzHzfU1_qn6skMEQ2kvsG4q3lf779muDkd_EkRTFYpfpGYRE3FgEfO"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="h-screen w-72 fixed left-0 top-0 bg-white/20 backdrop-blur-3xl border-r border-white/20 flex flex-col py-12 z-40 hidden md:flex">
+<div class="px-8 mb-12 mt-12">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-white text-sm">architecture</span>
+</div>
+<h2 class="font-bold text-[#91472a] tracking-tight text-xl">Pavilion Prime</h2>
+</div>
+<p class="font-['Manrope'] font-medium uppercase tracking-[0.05em] text-[0.75rem] text-secondary">Safety Command</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-4 text-[#91472a] bg-white/40 backdrop-blur-3xl rounded-r-full py-4 pl-8 transition-all duration-500 ease-in-out" href="responder.html">
+<span class="material-symbols-outlined">pending_actions</span>
+<span class="font-['Manrope'] font-medium uppercase tracking-[0.05em] text-[0.75rem]">Active Incidents</span>
+</a>
+<a class="flex items-center gap-4 text-[#47664b] hover:pl-10 transition-all py-4 pl-8 font-['Manrope'] font-medium uppercase tracking-[0.75rem]" href="responder.html">
+<span class="material-symbols-outlined">map</span>
+<span>Live Route</span>
+</a>
+<a class="flex items-center gap-4 text-[#47664b] hover:pl-10 transition-all py-4 pl-8 font-['Manrope'] font-medium uppercase tracking-[0.75rem]" href="responder.html">
+<span class="material-symbols-outlined">support_agent</span>
+<span>Messages</span>
+</a>
+</nav>
+<div class="px-8 mt-auto space-y-6">
+<div class="bg-white/40 backdrop-blur-3xl p-4 rounded-xl border border-white/20">
+<p class="text-[0.65rem] uppercase tracking-widest text-tertiary mb-1">System Status</p>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-2 group">
+<div class="w-3 h-3 rounded-full bg-secondary animate-pulse shadow-[0_0_8px_rgba(71,102,75,0.5)]"></div>
+<span class="text-xs font-bold text-secondary uppercase tracking-tight">Active &amp; Nominal</span>
+</button>
+</div>
+</div>
+<div class="space-y-4">
+<a class="flex items-center gap-3 text-[#765700] text-xs uppercase tracking-widest hover:text-[#91472a]" href="responder.html">
+<span class="material-symbols-outlined text-sm">help</span>
+                        Support
+                    </a>
+<a class="flex items-center gap-3 text-[#765700] text-xs uppercase tracking-widest hover:text-[#91472a]" href="responder.html">
+<span class="material-symbols-outlined text-sm">history</span>
+                        Archive
+                    </a>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 md:ml-72 mt-24 p-8 md:p-12">
+<header class="mb-12">
+<h1 class="text-5xl font-extrabold tracking-tight text-on-surface mb-2">Responder Dispatch Hub</h1>
+<p class="text-on-surface-variant font-light text-lg">Frontline staff response screen. Every Guest SOS reaches available hotel staff instantly.</p>
+</header>
+<div class="grid grid-cols-12 gap-8">
+<!-- Primary View: My Active Deployments -->
+<section class="col-span-12 lg:col-span-8 space-y-8">
+<div class="flex justify-between items-end mb-4">
+<h2 class="text-2xl font-bold tracking-tight text-primary">My Active Deployments</h2>
+<span class="label-md text-tertiary uppercase tracking-widest text-xs font-bold bg-white/50 px-3 py-1 rounded-full backdrop-blur-md border border-white/30">4 Priority Signals</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Glass Card 1 -->
+<div class="glass-card rounded-3xl p-8 flex flex-col h-[340px] shadow-2xl shadow-black/5 transition-all hover:translate-y-[-4px]">
+<div class="flex justify-between items-start mb-6">
+<span class="bg-secondary/20 text-secondary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest backdrop-blur-md border border-secondary/20">Medical • Zone 4</span>
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">emergency</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">Atrium Sunstroke</h3>
+<p class="text-on-surface-variant text-sm font-light mb-auto leading-relaxed">Guest reported dizziness near the South Fountain. Initial vitals requested via remote sensor.</p>
+<div class="flex flex-col gap-4 pt-6 border-t border-black/5">
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-surface" data-alt="Small avatar of a responder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkEnJJ68iLqsjDIS0OpiikfP_q0vjP45PreboCxhGEIN0F0Ms6-z3ijdXm07Erj_mmB7JoMpP9RY4eljHz3_bMdqbCHCjYvK8m_GcXMx1UoLU2SOy1d9P8xcD-40YOvsJ7fubPRH5Nm3HRXQGvJ5JQD9LaAUT5Bd_WFdGPdlw3REYjNxJIFVS3RWpRBdwJQnb3bqHwMnOnG2D5WOqgdGQVFoE4sP6-jwR7eLIR1Xwa2nvVumzyzVZLdl0qTcHlmUJQtGRofoRi8d6n"/>
+<img class="w-8 h-8 rounded-full border-2 border-surface" data-alt="Small avatar of another responder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-woTcyqmrL4DSc1joCClRDH7srZqkn_lC9-Ncn7MbTi47c2vAsZOJkk72APYCdrXsuhh2wxkcPrO10h6fxmP6ErRVWEiZyrjSxsLrln_zcGgAzJrU5eIGjnZup2UHplRv0_oGGcgje4oI0YnXwIFHPyKCNtt6Wcu9ICCZ_Ujcq0jSyyIjs4lVg0rQOjpdZYVE4L4Ew_5Rna8PHjBaWQs3zgewySnwpP0l1ZWwvoM4N8LZQRhOfg9f4OTqvCFkV6KiJdXo-JqcUoo_"/>
+</div>
+<span class="text-xs text-on-surface-variant font-medium">2 Team Members En Route</span>
+</div>
+<button class="bg-primary text-white uppercase px-5 py-3 rounded-full font-bold hover:bg-primary/90">Acknowledge Assignment</button>
+</div>
+</div>
+<!-- Glass Card 2 -->
+<div class="glass-card rounded-3xl p-8 flex flex-col h-[340px] shadow-2xl shadow-black/5 transition-all hover:translate-y-[-4px]">
+<div class="flex justify-between items-start mb-6">
+<span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest backdrop-blur-md border border-primary/20">Logistics • Poolside</span>
+<span class="material-symbols-outlined text-tertiary">water_drop</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">Filtration Alert</h3>
+<p class="text-on-surface-variant text-sm font-light mb-auto leading-relaxed">Secondary pump pressure drop detected in infinity pool reservoir. Inspection required within 15min.</p>
+<div class="flex items-center gap-3 pt-6 border-t border-black/5">
+<span class="text-xs text-primary font-bold">Action Required: Sensor Check</span>
+</div>
+</div>
+<!-- Glass Card 3 (Wide) -->
+<div class="glass-card rounded-3xl p-8 flex flex-col md:col-span-2 shadow-2xl shadow-black/5 transition-all hover:translate-y-[-4px] relative overflow-hidden">
+<div class="relative z-10 flex flex-col md:flex-row gap-8">
+<div class="md:w-1/2">
+<div class="mb-6">
+<span class="bg-tertiary/20 text-tertiary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest backdrop-blur-md border border-tertiary/20">Security • VIP Pavilion</span>
+</div>
+<h3 class="text-3xl font-extrabold mb-4">Unidentified Signal</h3>
+<p class="text-on-surface-variant text-base font-light mb-6 leading-relaxed">Unrecognized RFID signature detected in the Private Terrace. Security sweep initiated. Monitor drone feed for confirmation.</p>
+<button class="bg-white/40 backdrop-blur-3xl border border-white/40 text-primary px-6 py-3 rounded-full font-bold text-sm transition-all hover:bg-white/60">Open Live Feed</button>
+</div>
+<div class="md:w-1/2 h-48 md:h-auto rounded-2xl overflow-hidden shadow-inner border border-white/30">
+<img class="w-full h-full object-cover opacity-90" data-alt="High-angle drone view of a minimalist architectural terrace with clean lines and warm stone flooring" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAo-9Ug0ThoA9r7AfHNAPm9_NLbQf4JtXITxJkOefoezO1hl8PXE6Q9z2HXZFUa_t7C4kw9nLN0ddsX3dOcgAAhxx3XmT0jmGHWbEbn0E474CXZ7vRnmfNUAjlcr7W64FOfniUOCqlqSrQrMdBjqjnzDBmvc1NSu_tV8W08muj70ZlIIEezm1WtV9RruNKDQeqvTL3VtnKXHGLS3LNcIfL8jktTlB1Qd94lZmPUsd-FJ7tscMoVUWW2lfvnG5DUqZQOMQuSn88xTeqH"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Secondary View: Deployment Intelligence -->
+<aside class="col-span-12 lg:col-span-4">
+<div class="glass-card rounded-[2.5rem] p-8 h-full shadow-2xl border border-white/40">
+<h2 class="text-xl font-bold tracking-tight text-on-surface mb-8">Deployment Intelligence</h2>
+<!-- Guest Details Section -->
+<div class="mb-10">
+<p class="text-[0.65rem] uppercase tracking-[0.2em] text-tertiary font-extrabold mb-4">Focus Destination</p>
+<div class="bg-white/30 backdrop-blur-3xl rounded-2xl p-6 mb-6 border border-white/20">
+<h4 class="font-bold text-lg mb-1">Villa 12: Morning Mist</h4>
+<p class="text-sm text-on-surface-variant font-light">Occupant: Julian Vane</p>
+<p class="text-xs text-secondary mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">verified</span>
+                                    Priority Guest Status
+                                </p>
+</div>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-white/40 backdrop-blur-md flex items-center justify-center border border-white/20">
+<span class="material-symbols-outlined text-primary">device_thermostat</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface uppercase tracking-wider">Ambient Context</p>
+<p class="text-sm text-on-surface-variant">74°F / 42% Humidity</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-white/40 backdrop-blur-md flex items-center justify-center border border-white/20">
+<span class="material-symbols-outlined text-primary">distance</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface uppercase tracking-wider">Proximity</p>
+<p class="text-sm text-on-surface-variant">1.2km from Hub</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Map Integration -->
+<div class="rounded-2xl overflow-hidden mb-10 h-48 relative border border-white/40 shadow-lg">
+<img class="w-full h-full object-cover" data-alt="Topographic abstract map showing warm architectural layouts and pathways in a resort setting" data-location="Luxury Resort Layout" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAENEkT_lontTDsBreImNf3N3f6aZj9W4myhCNY_5bLtM2hb5vwqpYgwpz-xVpfa9p7F5qNb-J7TMzhOk5IZzSH_ccHV-3nXtgl3PA4RDdPJhe3ClL2qfg7QP4o4LvvsMI8gjk3az6hHg2k6Twg0gWJOQXPiAFFGOl77XxddbwIUUTWr4KC0s3Si-Yrsnixy5E0hfZaXB2c1WBZ2Q9UJICmQFdIXO_dyoB83qVnSR0Bdb0J753cxeS9UbN64ktFohV4lpSCFmzGdrTB"/>
+<div class="absolute inset-0 bg-primary/10 pointer-events-none"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+<div class="w-4 h-4 bg-primary rounded-full animate-ping"></div>
+</div>
+</div>
+<!-- Liquid Glass Action Button -->
+<button class="liquid-glass w-full py-5 rounded-full text-white font-extrabold tracking-widest text-sm uppercase shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98]">
+                            Mark Assigned
+                        </button>
+<p class="text-center text-[10px] text-on-surface-variant font-medium mt-4 uppercase tracking-tighter">Staff response status and incident acknowledgment.</p>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-10 mt-auto bg-white/40 backdrop-blur-3xl border-t border-white/20">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 max-w-7xl mx-auto w-full">
+<p class="font-['Manrope'] font-light text-xs tracking-widest uppercase text-[#47664b] mb-4 md:mb-0">
+                    © 2024 Solar Pavilion Architectural Serenity. All rights reserved.
+                </p>
+<div class="flex gap-8">
+<a class="font-['Manrope'] font-light text-xs tracking-widest uppercase text-[#765700] hover:text-[#91472a] transition-colors" href="responder.html">Privacy Protocol</a>
+<a class="font-['Manrope'] font-light text-xs tracking-widest uppercase text-[#765700] hover:text-[#91472a] transition-colors" href="responder.html">Security Compliance</a>
+<a class="font-['Manrope'] font-light text-xs tracking-widest uppercase text-[#765700] hover:text-[#91472a] transition-colors" href="responder.html">Terms of Service</a>
+</div>
+</div>
+</footer>
+<script src="auth.js"></script>
+<script>requireRole('staff', 'staff_login.html');</script>
+</div>
+</body></html>

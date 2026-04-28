@@ -7,26 +7,80 @@ export default {
   theme: {
     extend: {
       colors: {
+        "surface-container": "#f3ede4",
+        "primary": "#91472a",
+        "on-tertiary-container": "#fffbff",
+        "on-tertiary": "#ffffff",
+        "surface-tint": "#94492c",
+        "on-secondary-fixed-variant": "#2f4d34",
+        "secondary-fixed": "#c8ecc9",
+        "surface-container-low": "#f9f3ea",
+        "secondary-fixed-dim": "#adcfae",
+        "on-primary-container": "#fffbff",
+        "inverse-on-surface": "#f6f0e7",
+        "outline": "#87736c",
+        "tertiary-fixed": "#ffdfa0",
+        "surface-dim": "#dfd9d0",
+        "error": "#ba1a1a",
+        "secondary": "#10b981",    
+        "default-secondary": "#47664b",
+        "inverse-primary": "#ffb59b",
+        "tertiary-fixed-dim": "#fbbc00",
+        "primary-fixed-dim": "#ffb59b",
+        "outline-variant": "#dac1b9",
+        "on-primary": "#ffffff",
+        "surface-bright": "#fff8ef",
+        "primary-container": "#af5e3f",
+        "on-error-container": "#93000a",
+        "on-error": "#ffffff",
+        "secondary-container": "#d1fae5",
+        "on-secondary": "#ffffff",
+        "on-primary-fixed": "#380d00",
+        "surface-container-highest": "#e8e2d9",
+        "on-surface": "#1d1b16",
+        "error-container": "#ffdad6",
+        "on-background": "#1d1b16",
+        "primary-fixed": "#ffdbcf",
+        "on-tertiary-fixed": "#261a00",
+        "surface": "#fff8ef",
+        "on-tertiary-fixed-variant": "#5c4300",
+        "on-surface-variant": "#54433d",
+        "on-secondary-container": "#065f46",
+        "surface-container-high": "#ede7de",
+        "tertiary-container": "#956e00",
+        "on-primary-fixed-variant": "#763217",
+        "surface-variant": "#e8e2d9",
+        "surface-container-lowest": "#ffffff",
+        "background": "#fff8ef",
+        "inverse-surface": "#33302a",
+        "on-secondary-fixed": "#03210c",
+        "tertiary": "#765700",
         brand: {
-          // Earthy Light Mode
-          stone: '#eef0f2', // soft warm grey base
-          sand: '#e6dfd3', // cream/sand accent
-          clay: '#d4b7a1', // deeper sand/clay
-          
-          // Primary Elements
+          stone: '#eef0f2',
+          sand: '#e6dfd3',
+          clay: '#d4b7a1',
           terracotta: '#c97a5e',
           olive: '#4b5320', 
-          moss: '#596847', // softer olive
-          
-          // Earthy Dark Mode
-          dark: '#1e1c1b', // warm black/charcoal
-          zinc: '#2a2826', // warm dark grey
+          moss: '#596847',
+          dark: '#1e1c1b',
+          zinc: '#2a2826',
           amber: '#8b5a2b',
+          teal:  '#2d6b6b',
+          cream: '#faf6ef',
         }
       },
+      borderRadius: {
+        "DEFAULT": "0.125rem",
+        "lg": "0.25rem",
+        "xl": "0.5rem",
+        "full": "0.75rem"
+      },
       fontFamily: {
-        serif: ['"DM Serif Display"', 'serif'],
-        sans: ['"DM Sans"', 'sans-serif'],
+        headline: ["Manrope", "sans-serif"],
+        body: ["Manrope", "sans-serif"],
+        label: ["Manrope", "sans-serif"],
+        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        sans:  ['"Jost"', 'system-ui', 'sans-serif'],
       },
       animation: {
         'ping-slow': 'ping 3s cubic-bezier(0, 0, 0.2, 1) infinite',

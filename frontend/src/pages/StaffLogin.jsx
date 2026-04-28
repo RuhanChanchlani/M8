@@ -26,7 +26,13 @@ const StaffLogin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-brand-stone dark:bg-brand-zinc transition-colors duration-500 flex items-center justify-center p-4 relative">
+    <div className="min-h-screen bg-brand-stone dark:bg-brand-zinc transition-colors duration-500 flex items-center justify-center p-4 relative z-0">
+      {/* Resort ambient gradients */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+        <div className="absolute top-[-20%] right-[-15%] w-[60%] h-[60%] rounded-full bg-brand-olive/8 blur-[120px]" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brand-teal/6 blur-[100px]" />
+        <div className="absolute top-[40%] left-[30%] w-[40%] h-[30%] rounded-full bg-brand-clay/5 blur-[80px]" />
+      </div>
       <div className="absolute top-6 right-6">
         <ThemeToggle />
       </div>
@@ -94,8 +100,13 @@ const StaffLogin = () => {
             </div>
           </CardContent>
           <CardFooter className="flex-col gap-3">
-            <Button type="submit" variant="secondary" className="w-full bg-brand-olive text-brand-sand hover:bg-brand-olive/90 dark:text-brand-stone dark:hover:bg-brand-olive/80">
-              Sign In
+            <Button
+              type="submit"
+              variant="secondary"
+              fullWidth
+              className="uppercase tracking-widest font-bold py-3.5"
+            >
+              STAFF LOGIN
             </Button>
             <Button type="button" variant="ghost" fullWidth onClick={() => navigate('/')} className="text-sm">
                <ArrowLeft className="w-4 h-4 mr-2" /> Back to Home
